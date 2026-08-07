@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar Soluciones - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- FILTROS DE SERVICIOS --- */
+        .services-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        /* --- GRID DE SOLUCIONES --- */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .solution-card {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.4);
+            border-color: var(--info);
+        }
+
+        .solution-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .solution-card:hover .solution-image {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .solution-content {
+            padding: 30px;
+        }
+
+        .solution-tag {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .solution-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .solution-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .solution-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .solution-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .solution-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .solution-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary-color);
+            width: 100%;
+            text-align: center;
+        }
+
+        .solution-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .services-filter { flex-direction: column; align-items: center; }
+            .filter-btn { width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="#" class="active">Soluciones</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon">🚀</div>
+            <h1>Explorar Soluciones</h1>
+            <p>Descubre nuestros servicios de ciberseguridad diseñados para proteger tu organización contra amenazas digitales. Soluciones integrales adaptadas a tus necesidades.</p>
+        </section>
+
+        <!-- FILTROS -->
+        <div class="services-filter">
+            <button class="filter-btn active" onclick="filterSolutions('all')">Todos</button>
+            <button class="filter-btn" onclick="filterSolutions('ofensivo')">Seguridad Ofensiva</button>
+            <button class="filter-btn" onclick="filterSolutions('defensivo')">Seguridad Defensiva</button>
+            <button class="filter-btn" onclick="filterSolutions('normativa')">Normativa</button>
+            <button class="filter-btn" onclick="filterSolutions('consultoria')">Consultoría</button>
+        </div>
+
+        <!-- GRID DE SOLUCIONES -->
+        <section class="solutions-grid">
+
+            <!-- SOLUCIÓN 1: PENTESTING -->
+            <div class="solution-card" data-category="ofensivo">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" alt="Pentesting" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🔴 Seguridad Ofensiva</span>
+                    <h3>Pentesting Web</h3>
+                    <p>Pruebas de penetración éticas para identificar vulnerabilidades en tus aplicaciones web antes que los atacantes.</p>
+                    <ul class="solution-features">
+                        <li>Detección de SQL Injection, XSS, CSRF</li>
+                        <li>Informe detallado con evidencias</li>
+                        <li>Recomendaciones de remediación</li>
+                        <li>Re-testing de vulnerabilidades</li>
+                    </ul>
+                    <a href="pentesting.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN 2: ANÁLISIS FORENSE -->
+            <div class="solution-card" data-category="defensivo">
+                <img src="analisis forense digital.jpg" alt="Análisis Forense" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🔵 Seguridad Defensiva</span>
+                    <h3>Análisis Forense Digital</h3>
+                    <p>Investigación especializada de incidentes de seguridad. Preservamos y analizamos evidencia digital con validez legal.</p>
+                    <ul class="solution-features">
+                        <li>Investigación de incidentes</li>
+                        <li>Preservación de evidencia</li>
+                        <li>Informe pericial legal</li>
+                        <li>Recuperación de datos</li>
+                    </ul>
+                    <a href="analisisforensedigital.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN 3: AUDITORÍA DE REDES -->
+            <div class="solution-card" data-category="defensivo">
+                <img src="auditoriaderedes.jpg" alt="Auditoría de Redes" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🔵 Seguridad Defensiva</span>
+                    <h3>Auditoría en Redes</h3>
+                    <p>Evaluación integral de tu infraestructura de red. Identificamos vulnerabilidades y configuraciones inseguras.</p>
+                    <ul class="solution-features">
+                        <li>Escaneo de vulnerabilidades</li>
+                        <li>Revisión de firewalls y routers</li>
+                        <li>Segmentación de red</li>
+                        <li>Informe de cumplimiento</li>
+                    </ul>
+                    <a href="auditoriaderedes.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN 4: ISO 27001 -->
+            <div class="solution-card" data-category="normativa">
+                <img src="ISO-27001.png" alt="ISO 27001" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🟡 Normativa</span>
+                    <h3>Asesoría ISO 27001</h3>
+                    <p>Implementación de Sistemas de Gestión de Seguridad de la Información alineados con el estándar internacional.</p>
+                    <ul class="solution-features">
+                        <li>Diagnóstico inicial (Gap Analysis)</li>
+                        <li>Desarrollo documental SGSI</li>
+                        <li>Auditorías internas</li>
+                        <li>Preparación para certificación</li>
+                    </ul>
+                    <a href="asesoriaISO27001.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN 5: CONSULTORÍA SOC -->
+            <div class="solution-card" data-category="consultoria">
+                <img src="centro SOC.jpg" alt="Consultoría SOC" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🟢 Consultoría</span>
+                    <h3>Consultoría SOC</h3>
+                    <p>Diseño e implementación de Security Operations Center para monitoreo continuo y respuesta a incidentes 24/7.</p>
+                    <ul class="solution-features">
+                        <li>Monitoreo continuo 24/7</li>
+                        <li>Detección de amenazas</li>
+                        <li>Respuesta a incidentes</li>
+                        <li>Threat Intelligence</li>
+                    </ul>
+                    <a href="consultoriaSOC.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN 6: NORMATIVA CSIRT -->
+            <div class="solution-card" data-category="normativa">
+                <img src="csirt.jpg" alt="Normativa CSIRT" class="solution-image">
+                <div class="solution-content">
+                    <span class="solution-tag">🟡 Normativa</span>
+                    <h3>Normativa CSIRT</h3>
+                    <p>Asesoría en cumplimiento de Ley Marco de Ciberseguridad chilena. Implementación de Equipos de Respuesta a Incidentes.</p>
+                    <ul class="solution-features">
+                        <li>Cumplimiento Ley 21.575</li>
+                        <li>Designación de Oficial de Ciberseguridad</li>
+                        <li>Notificación de incidentes</li>
+                        <li>Coordinación con CSIRT-CL</li>
+                    </ul>
+                    <a href="normativaCSIRT.html" class="solution-btn">Ver Más</a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🔒 ¿Necesitas una Solución Personalizada?</h2>
+            <p>Cada organización es única. Contáctanos para evaluar tus necesidades específicas y diseñar un plan de ciberseguridad a tu medida.</p>
+            <a href="index.html#contacto" class="cta-btn">Solicitar Evaluación Gratuita</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="politica-privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Filtro de soluciones
+        function filterSolutions(category) {
+            const cards = document.querySelectorAll('.solution-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Actualizar botones activos
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'Todos')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filtrar cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Animación fadeIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

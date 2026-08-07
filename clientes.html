@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* --- LOGOS DE CLIENTES --- */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+            align-items: center;
+        }
+
+        .client-logo {
+            background: var(--bg-card);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            transition: all 0.3s;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+
+        .client-logo:hover {
+            border-color: var(--primary-color);
+            filter: grayscale(0%);
+            opacity: 1;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .client-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .client-logo.placeholder {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* --- ESTADÍSTICAS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- CASOS DE ÉXITO --- */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .case-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .case-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .case-card:hover .case-image {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .case-content {
+            padding: 30px;
+        }
+
+        .case-tag {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .case-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .case-content .client-name {
+            color: var(--info);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .case-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .case-results {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .case-results h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .case-results ul {
+            list-style: none;
+        }
+
+        .case-results ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .case-results ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* --- TESTIMONIOS --- */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .author-info h4 {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 30px 20px; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .clients-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="index.html#tips">Tips</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="#" class="active">Clientes</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>Nuestros Clientes</h1>
+            <p>Empresas que confían en nosotros para proteger sus activos digitales. Conoce los casos de éxito que demuestran nuestro compromiso con la excelencia en ciberseguridad.</p>
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+        <section class="section">
+            <h2>Nuestros Números</h2>
+            
+            <div class="stats-grid">
+               <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Proyectos Completados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Tasa de Satisfacción</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Soporte Dedicado</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGOS DE CLIENTES -->
+        <section class="section">
+            <h2>Empresas que Confían en Nosotros</h2>
+            <p>Trabajamos con organizaciones de diversos sectores en Chile, desde PYMES hasta grandes empresas:</p>
+            
+            <div class="clients-grid">
+                <!-- Reemplaza estos placeholders con logos reales -->
+                <div class="client-logo placeholder">
+                    <img src="NewenRustik.png" alt="NewenRustik">
+                    Mueblería  Rústica NewenRustik
+                </div>
+                <div class="client-logo placeholder">
+                    <img src="Acompañarte.jpg" alt="Acompañarte">
+                    Acompañamiento Terapeútico
+                </div>
+                <div class="client-logo placeholder">
+                    <img src="Emergencias Fénix Chile.png" alt="EFC">
+                    Red Ciudadana Emergencias Fénix Chile
+                </div>
+                <div class="client-logo placeholder">
+                    <img src="Logo Cóndor Digital.png" alt="Cóndor Digital">
+                    Aéro Vigilancia Cóndor Digital
+                </div>
+                <div class="client-logo placeholder">
+                    <img src="sakura_rolls.png" alt="Sakura Rolls">
+                    Delivery de Sushi Sakura Rolls
+                </div>
+                <div class="client-logo placeholder">
+                    <img src="Salud y bienestar.png" alt="Salud y Bienestar">
+                    Salud Emocional Todas Contamos
+                </div>
+            </div>
+
+            <div class="highlight-box" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1)); border: 2px solid var(--primary-color); border-radius: 10px; padding: 30px; margin: 30px 0; position: relative;">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.4rem;">💡 ¿Quieres ser parte de nuestros clientes?</h3>
+                <p style="margin: 0;">Contáctanos y descubre cómo podemos proteger tu organización. Ofrecemos evaluaciones gratuitas sin compromiso.</p>
+            </div>
+        </section>
+
+        <!-- CASOS DE ÉXITO -->
+        <section class="section">
+            <h2>Casos de Éxito</h2>
+            <p>Conoce cómo hemos ayudado a nuestras organizaciones cliente a fortalecer su postura de seguridad:</p>
+            
+            <div class="cases-grid">
+                <!-- CASO 1 -->
+                <div class="case-card">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop" alt="Caso 1" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Banca y Finanzas</span>
+                        <h3>Implementación de SOC 24/7</h3>
+                        <div class="client-name">Institución Financiera Regional</div>
+                        <p>Desafío: Necesidad de monitoreo continuo de seguridad y cumplimiento con normativa SBIF.</p>
+                        <p>Solución: Implementación de Security Operations Center con monitoreo 24/7, SIEM y respuesta a incidentes.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>Reducción del 85% en tiempo de detección de incidentes</li>
+                                <li>Cumplimiento 100% con Circular 3460 SBIF</li>
+                                <li>0 incidentes críticos no detectados en 12 meses</li>
+                                <li>ROI del 340% en el primer año</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASO 2 -->
+                <div class="case-card">
+                    <img src="ISO-27001.png" alt="Caso 2" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Retail</span>
+                        <h3>Certificación ISO 27001</h3>
+                        <div class="client-name">Cadena de Retail Nacional</div>
+                        <p>Desafío: Obtener certificación ISO 27001 para cumplir requisitos de partners internacionales.</p>
+                        <p>Solución: Asesoría completa en implementación de SGSI, documentación, capacitación y preparación para auditoría.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>Certificación ISO 27001 obtenida en 10 meses</li>
+                                <li>0 no conformidades mayores en auditoría</li>
+                                <li>Mejora del 70% en procesos de seguridad</li>
+                                <li>Nuevos contratos con retailers internacionales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASO 3 -->
+                <div class="case-card">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Caso 3" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Salud</span>
+                        <h3>Respuesta a Incidente Ransomware</h3>
+                        <div class="client-name">Red de Clínicas Privadas</div>
+                        <p>Desafío: Ataque de ransomware que cifró sistemas críticos de atención médica.</p>
+                        <p>Solución: Activación inmediata de equipo de respuesta, contención, erradicación y recuperación de sistemas.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>Contención en menos de 2 horas</li>
+                                <li>Recuperación completa en 24 horas</li>
+                                <li>0 pérdida de datos de pacientes</li>
+                                <li>Sin interrupción de servicios críticos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASO 4 -->
+                <div class="case-card">
+                    <img src="Infraestructura.png" alt="Caso 4" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Energía</span>
+                        <h3>Auditoría de Infraestructura Crítica</h3>
+                        <div class="client-name">Empresa de Distribución Eléctrica</div>
+                        <p>Desafío: Evaluar seguridad de infraestructura crítica y cumplir con Ley Marco de Ciberseguridad.</p>
+                        <p>Solución: Auditoría completa de redes, sistemas SCADA/ICS, segmentación IT/OT y plan de remediación.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>Identificación de 45 vulnerabilidades críticas</li>
+                                <li>Remediación del 100% en 6 meses</li>
+                                <li>Cumplimiento anticipado Ley 21.575</li>
+                                <li>Mejora del 90% en postura de seguridad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASO 5 -->
+                <div class="case-card">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop" alt="Caso 5" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Tecnología</span>
+                        <h3>Pentesting de Aplicación Web</h3>
+                        <div class="client-name">Startup Fintech</div>
+                        <p>Desafío: Evaluar seguridad de plataforma de pagos antes del lanzamiento al mercado.</p>
+                        <p>Solución: Pentesting exhaustivo de aplicación web, API y móvil con metodología OWASP.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>12 vulnerabilidades identificadas (3 críticas)</li>
+                                <li>Remediación completa antes del lanzamiento</li>
+                                <li>Certificación de seguridad para inversores</li>
+                                <li>Lanzamiento exitoso sin incidentes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASO 6 -->
+                <div class="case-card">
+                    <img src="analisis forense digital.jpg" alt="Caso 6" class="case-image">
+                    <div class="case-content">
+                        <span class="case-tag">Manufactura</span>
+                        <h3>Análisis Forense Digital</h3>
+                        <div class="client-name">Empresa Manufacturera</div>
+                        <p>Desafío: Investigación de fuga de información confidencial y propiedad intelectual.</p>
+                        <p>Solución: Análisis forense de computadores, servidores, correos y dispositivos móviles.</p>
+                        <div class="case-results">
+                            <h4>Resultados Obtenidos:</h4>
+                            <ul>
+                                <li>Identificación del responsable en 5 días</li>
+                                <li>Evidencia admisible en proceso legal</li>
+                                <li>Recuperación de documentos robados</li>
+                                <li>Implementación de controles preventivos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIOS -->
+        <section class="section">
+            <h2>Testimonios de Clientes</h2>
+            <p>Lo que dicen quienes han confiado en nosotros:</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">El equipo de Código 404 implementó controles de seguridad que redujeron un 90% nuestros incidentes.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AJ</div>
+                        <div class="author-info">
+                            <h4>Alejandro Jiménez</h4>
+                            <p>Director de Proyectos, NewenRustik</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">La formación en ciberseguridad fue clara, práctica y adaptada a nuestro personal no técnico.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JA</div>
+                        <div class="author-info">
+                            <h4>Julio Abba</h4>
+                            <p>Gerente de Operaciones, Acompañarte - Argentina</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Gracias a su asesoría en el manejo de las Redes Sociales, logramos reducir considerablemente el bombardeo de FakeNews.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DC</div>
+                        <div class="author-info">
+                            <h4>David Catricura</h4>
+                            <p>Sub-Director, Red Ciudadana Emergencias Fénix Chile</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">La estratégia utilizada en el manejo de datos sensibles, logró reducir la filtración de la información de nuestros clientes.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <h4>Anibal Morales</h4>
+                            <p>Gerente de Operaciones, Cóndor Digital</p>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">Las charlas a través de sus redes sociales me son de mucha utilidad para proteger mis propias redes sociales y mis activos digitales.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JC</div>
+                    <div class="author-info">
+                        <h4>Javiera Caamaño</h4>
+                        <p>Dueña de Sakura Rolls - Delivery Sushi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">El respaldo y soporte tecnológico que Código 404 Ciberseguridad ofrece es de gran ayuda para mantener mis redes sociales y sitio web siempre al día.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">ET</div>
+                    <div class="author-info">
+                        <h4>Elsa Torres</h4>
+                        <p>Directora General de Todas Contamos - Salud Emocional</p>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🚀 Únete a Nuestros Clientes Satisfechos</h2>
+            <p>Protege tu organización con el mismo nivel de excelencia que ofrecemos a nuestros clientes. Contáctanos hoy y descubre cómo podemos ayudarte.</p>
+            <a href="index.html#contacto" class="cta-btn">Solicitar Evaluación Gratuita</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>                    
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

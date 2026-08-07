@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código 404 Ciberseguridad</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+        }
+
+        /* --- Corrección de Scroll Para Header Fijo --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Altura del header + margen */
+        }
+
+        /* Asegurar que cada sección tenga el offset correcto */
+        #nosotros,
+        #inicio,
+        #servicios,
+        #contacto {
+            scroll-margin-top: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* ⚠️ CAMBIA ESTO POR TU IMAGEN DE FONDO */
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.12;
+            z-index: -1;
+        }
+
+        /* --- HEADER / NAVEGACIÓN --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- MENÚ DESPLEGABLE --- */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--bg-darker);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+            border: 1px solid var(--primary-color);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 100px 5% 40px;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* === HERO SECTION - LOGO | TÍTULO | RADAR === */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 80px auto;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* --- LOGO PRINCIPAL (IZQUIERDA) --- */
+        .hero-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5));
+            animation: logo-glow 3s ease-in-out infinite;
+            background: transparent;
+        }
+
+        @keyframes logo-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5)); }
+            50% { filter: drop-shadow(0 0 35px rgba(0, 255, 65, 0.8)); }
+        }
+
+        /* --- TÍTULO PRINCIPAL (CENTRO) --- */
+        .hero-content {
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+        }
+
+        .hero-btn:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- RADAR (DERECHA) --- */
+        .radar-container {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radar {
+            width: 140px;
+            height: 140px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, rgba(0, 0, 0, 0.8) 70%);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.3), inset 0 0 25px rgba(0, 255, 65, 0.2);
+            overflow: hidden;
+        }
+
+        .radar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 75%;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            border-radius: 50%;
+        }
+
+        .radar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            border-radius: 50%;
+        }
+
+        .radar-scan {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.9), transparent);
+            transform-origin: left center;
+            animation: radar-sweep 2s linear infinite;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        @keyframes radar-sweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .radar-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .dot-1 { top: 30%; left: 60%; animation-delay: 0s; }
+        .dot-2 { top: 65%; left: 25%; animation-delay: 0.5s; }
+        .dot-3 { top: 40%; left: 75%; animation-delay: 1s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .radar-label {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            letter-spacing: 3px;
+            animation: blink 2s ease-in-out infinite;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* --- SECCIONES DE CONTENIDO --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 1px solid var(--primary-color);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 15px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 5%;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .secure-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 25px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+            font-weight: bold;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.8);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-logo {
+                order: 1;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .radar-container {
+                order: 3;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .logo-nav {
+                font-size: 1.1rem;
+            }
+
+            .hero-logo img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .radar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /*=============
+        CERTIFICACIONES
+        ===============*/
+
+        .certificaciones {
+            max-width: 1200px;
+            margin: 70px auto;
+            padding: 50px;
+            background: rgba(22, 43, 34, 0.85);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .certificaciones h2{
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .cert-texto {
+            max-width: 800px;
+            margin: auto;
+            color: var(--text-color);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .stat {
+            background: var(--bg-card);
+            border: 1px solid rgba(0,255,65,.2);
+            border-radius: 8px;
+            padding: 25px;
+            transition: .3s;
+        }
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0,255,65,.25);
+        }
+        .stat h3 {
+            color:var(--primary-color);
+            font-size: 2.4rem;
+        }
+        .stat span {
+            color: var(--text-muted);
+        }
+        .btn-certificaciones {
+            display: inline-block;
+            padding: 14px 35px;
+            border: 2px solid var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: .3s;
+        }
+        .btn-certificaciones:hover {
+            background: rgba(0,255,65,.15);
+            box-shadow: 0 0 20px rgba(0,255,65,.4);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / MENÚ -->
+    <header>
+        <a class='logo-nav' href='/'>Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li class="dropdown">
+                    <a href="#servicios">Servicios ▾</a>
+                    <div class="dropdown-content">
+                        <a href='analisisforensedigital.html'>Análisis Forense</a>
+                        <a href='auditoriaderedes.html'>Auditoría de Redes</a>
+                        <a href='asesoriaISO27001.html'>Asesoría ISO 27001</a>
+                        <a href='consultoriaSOC.html'>Consultoría SOC</a>
+                        <a href='normativaCSIRT.html'>Normativa CSIRT</a>
+                        <a href='pentesting.html'>Pentesting</a>
+                        <a href='capacitacionesgratis.html'>Cursos Gratis</a>
+                    </div>
+                </li>
+                <li><a href='clientes.html'>Clientes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" id="inicio">
+
+        <!-- === HERO SECTION: LOGO | TÍTULO | RADAR === -->
+        <section class="hero">
+
+            <!-- 1️⃣ LOGO (IZQUIERDA) -->
+            <div class="hero-logo">
+                <!-- ⚠️ CAMBIA 'tu-logo.png' POR LA RUTA DE TU LOGO -->
+                <img src="Logo Digital CD-404.jpg" alt="Código 404 Logo">
+            </div>
+
+            <!-- 2️⃣ TÍTULO PRINCIPAL (CENTRO) -->
+            <div class="hero-content">
+                <h1>Protegemos la información</h1>
+                <p>que mantiene tu empresa en funcionamiento.</p>
+                <h1>Consultoría especializada en:</h1>
+                <p>Ciberseguridad, Auditorías, Pentesting, Resuesta a incidentes y cumplimiento normativo
+                    para proteger su información crítica.</p>
+                <a class='hero-btn' href='explorarsoluciones.html'>Explorar Soluciones</a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    🛡 Atención a Empresas
+                </div>
+                <div class="trust-item">
+                    🎓 Formación Continua
+                </div>
+                <div class="trust-item">
+                    🇨🇱 Servicios en Chile
+            </div>
+
+            <!-- 3️⃣ RADAR (DERECHA) -->
+            <div class="radar-container">
+                <div class="radar">
+                    <div class="radar-scan"></div>
+                    <div class="radar-dot dot-1"></div>
+                    <div class="radar-dot dot-2"></div>
+                    <div class="radar-dot dot-3"></div>
+                </div>
+                <div class="radar-label">MONITOREO ACTIVO</div>
+            </div>
+
+        </section>
+
+        <!-- SECCIÓN BIENVENIDA -->
+        <section class="section">
+            <h2>¿Por qué elegir Código 404 CS?</h2>
+            <p>En <strong>Código 404 Ciberseguridad</strong> "protegemos tu red incluso de lo que no se ve". Trabajamos para identificar vulnerabilidades antes que los atacantes.</p>
+        </section>
+
+        <!-- SECCIÓN EXPERTOS -->
+        <section class="section">
+            <h2>Expertos en Ciberseguridad</h2>
+            <p><strong>Código 404 Ciberseguridad </strong>brinda servicios de consultoría, análisis, pentesting, normativa vigente entre otros.</p>
+            <p>✨ Brindamos formación, programas de concientización, charlas educativas de ciberseguridad, etc.</p>
+            <p>🎯 Nuestro enfoque se centra en brindar servicios integrales.</p>
+        </section>
+
+        <!-- SECCIÓN NOSOTROS -->
+        <section class="section" id="nosotros">
+            <h2>Nosotros</h2>
+            <p><strong>Código 404 Ciberseguridad</strong> nace desde la necesidad de contar con políticas robustas que fortalezcan el tratamiento de los datos y activos digitales de las personas y empresas.
+                       Somos un equipo comprometido en brindar un servicio de calidad, serio y eficaz. Transparencia, comunicación directa y rápida es nuestra mayor fortaleza.
+                       Debido a esta forma de operar es que gracias a Código 404 Ciberseguridad<strong> las amenazas terminan en ERROR.</strong></p>
+            <p>📧 Email: <strong>codigo404ciberseg@gmail.com</strong></p>
+        </section>
+
+        <!-- SECCIÓN CONTACTO CTA -->
+        <section class="section cta-section" id="contacto">
+            <h1>Para Empresas</h1>
+            <h2>¿Listo para hablar?</h2>
+            <p>Contáctanos directamente por WhatsApp. Responderemos lo antes posible.</p>
+            <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20agendar%20una%20reunión%20para%20saber%20más%20de%20los%20servicios%20que%20ofrecen" class="cta-btn">💬 Contactar por WhatsApp</a>
+        </section>
+
+    </main>
+
+    <!-- CERTIFICACIONES -->
+     <section class="certificaciones">
+
+        <h2>🏆 Certificaciones Profesionales</h2>
+
+        <p class="cert-texto">
+            Nuestro equipo mantiene una formación continua en Ciberseguridad,
+            análisis forense, redes, programación, inteligencia artificial y
+            tecnologías de la información mediante certificaciones internacionales.
+        </p>
+
+        <div class="stats">
+
+            <div class="stat">
+                <h3>40+</h3>
+                <span>Certificaciones</span>
+            </div>
+
+            <div class="stat">
+                <h3>7</h3>
+                <span>Plataformas Internacionales</span>
+            </div>
+
+            <a href="certificaciones.html" class="btn-certificaciones">
+                Ver todas las certificaciones →
+            </a>    
+     </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <!-- Columna 1 -->
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+                <div class="secure-badge">🔒 SSL SECURE</div>
+            </div>
+
+            <!-- Columna 2 -->
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="certificaciones.html">Certificaciones</a></li>
+                    <li><a href="politicadeprivacidad.html">Política de Privacidad</a></li>
+                    <li><a href="terminosdeservicio.html">Términos de Servicio</a></li>
+                    <li><a href="politicadecookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3 -->
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul>
+                    <li><a href='analisisforensedigital.html'>Análisis Forense</a></li>
+                    <li><a href='auditoriaderedes.html'>Auditoría de Redes</a></li>
+                    <li><a href="asesoriaISO27001.html">Asesoría ISO 27001</a></li>
+                    <li><a href='consultoriaSOC.html'>Consultoría SOC</a></li>
+                    <li><a href="normativaCSIRT.html">Normativa CSIRT</a></li>
+                    <li><a href='pentesting.html'>Pentesting</a></li>
+                    <li><a href="capacitacionesgratis.html">Cursos Gratis</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 4 -->
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+             </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+            <p>Desarrollado con <span>Profesionalismo y Ética</span> para la seguridad digital</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Política de cookies de [NOMBRE DE LA EMPRESA]. Información sobre los tipos de cookies, su finalidad y cómo gestionarlas.">
+    <title>Política de Cookies - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secundary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+         /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+         .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+         nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        header .fecha {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+         /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .last-update {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+       /* --- SECCIONES DE CONTENIDO --- */
+        .content-section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .content-section h3 {
+            color: #00d4ff;
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section ul li::marker {
+            color: var(--primary-color);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 212, 255, 0.05));
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.05), rgba(255, 68, 68, 0.05));
+            border: 1px solid #ffaa00;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .warning-box h4 {
+            color: #ffaa00;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+       /* --- CONTACTO INFO --- */
+        .contact-info {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .contact-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+         /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* ===== BANNER DE COOKIES ===== */
+        #banner-cookies {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background:rgba(0, 0, 0, 0.8);
+            color: var(--color-blanco);
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 -2px 10px rgba(48, 248, 8, 0.699);
+            z-index: 1000;
+        }
+
+        #banner-cookies p {
+            max-width: 600px;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        #banner-cookies .botones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #banner-cookies button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        #banner-cookies button:hover {
+            opacity: 0.85;
+        }
+
+        .btn-aceptar {
+            background: #4caf50;
+            color: var(--color-blanco);
+        }
+
+        .btn-rechazar {
+            background: #e53935;
+            color: var(--color-blanco);
+        }
+
+        .btn-configurar {
+            background: transparent;
+            color: var(--color-blanco);
+            border: 1px solid var(--color-blanco) !important;
+        }
+
+       /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .content-section { padding: 25px 20px; }
+            .content-section h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+     <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="#"class="active">Política de Cookies</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+     </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+         <section class="hero">
+        <h1>📋 Política de Cookies</h1>
+        <p>Adaptada a la normativa Chilena de Protección de Datos Personales</p>
+        <p class="fecha">Última actualización: <strong>06 Agosto 2026</strong></p>
+         </section>
+    </main>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main>
+
+        <!-- SECCIÓN 1 -->
+        <section class="content-section">
+            <h2>1. Información General y Marco Legal Aplicable</h2>
+            <p>
+                La presente Política de Cookies tiene por objeto informar a los usuarios del sitio web <strong>codigo404cs.pages.dev</strong>,
+                con domicilio en <strong>Nueva Imperial, IX Región de Chile</strong>, sobre el uso de cookies y tecnologías similares, en 
+                cumplimiento de la normativa Chilena vigente en materia de protección de datos personales y privacidad.
+            </p>
+            <p>
+                En Chile no existe una ley específica denominada “ley de cookies”. Sin embargo, el uso de cookies
+                puede implicar el tratamiento de datos personales, por lo que resulta aplicable la normativa sobre
+                protección de datos, en especial:
+            </p>
+            <ul>
+                <li>
+                   El <strong>artículo 19 N° 4 de la Constitución Política de la República de Chile</strong>,
+                    que protege la vida privada y el tratamiento de datos personales. 
+                </li>
+                <li>
+                    La <strong>Ley N° 19.628 sobre Protección de la Vida Privada</strong>, que regula el tratamiento
+                    de datos personales en Chile.
+                </li>
+                <li>
+                    La <strong>Ley N° 21.096</strong>, que consagra el derecho constitucional a la protección de
+                    datos personales.
+                </li>
+                <li>
+                    La <strong>Ley N° 21.719</strong>, que moderniza la regulación sobre tratamiento y protección de
+                    datos personales y crea la Agencia de Protección de Datos, en la medida que resulte aplicable
+                    conforme a sus disposiciones y vigencia.
+                </li>
+                <li>
+                    La <strong>Ley N° 19.496 sobre Protección de los Derechos de los Consumidores</strong>, cuando
+                    corresponda, en lo relativo al deber de entregar información clara, veraz y oportuna a los usuarios.
+                </li>
+            </ul>
+            <p>
+                Esta política se basa en los principios de <strong>transparencia, información, finalidad,
+                proporcionalidad y respeto por la privacidad</strong> de los usuarios.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 2 -->
+        <section class="content-section">
+            <h2>2. ¿Qué son las cookies?</h2>
+            <p>
+                Las cookies son pequeños archivos de texto que se almacenan en el dispositivo del usuario
+                —computador, teléfono móvil, tablet u otro— cuando visita un sitio web. Estos archivos permiten
+                que el sitio recuerde cierta información sobre la visita, como preferencias de navegación,
+                idioma, sesión iniciada, configuración del sitio o datos técnicos necesarios para su funcionamiento.
+            </p>
+            <p>
+                También pueden existir otras tecnologías similares, como <strong>local storage</strong>,
+                <strong>session storage</strong>, píxeles de seguimiento o identificadores de publicidad,
+                las cuales, para efectos de esta política, se entenderán comprendidas bajo el término “cookies”,
+                salvo que se indique lo contrario.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 3 -->
+        <section class="content-section">
+            <h2>3. Cookies y datos personales conforme a la ley chilena</h2>
+             <p>
+                Conforme a la legislación chilena, son datos personales aquellos relativos a cualquier información
+                concerniente a personas naturales identificadas o identificables. En consecuencia, si una cookie
+                contiene un identificador que, por sí solo o combinado con otra información, permite identificar
+                a una persona, puede ser considerada un dato personal o formar parte de un tratamiento de datos
+                personales.
+            </p>
+
+            <p>
+                Por ello, el uso de cookies no esenciales que permitan identificar o perfilar a usuarios deberá
+                realizarse adoptando medidas de transparencia y, cuando corresponda, recabando el consentimiento
+                del usuario o aplicando otra base jurídica válida conforme a la normativa aplicable.
+            </p>
+
+            <p class="nota">
+                Las cookies estrictamente necesarias para el funcionamiento del sitio o para prestar un servicio
+                solicitado por el usuario pueden utilizarse sin consentimiento específico, en la medida en que sean
+                indispensables para la navegación, seguridad o prestación del servicio.
+            </p>           
+        </section>
+
+        <!-- SECCIÓN 4 -->
+        <section class="content-section">
+            <h2>4. Tipos de cookies utilizadas</h2>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cookies propias</strong></td>
+                            <td>Son aquellas enviadas desde el sitio web o dominio gestionado por el titular.</td>
+                        </tr>
+                        <tr>
+                             <td><strong>Cookies de terceros</strong></td>
+                            <td>Son aquellas enviadas desde equipos o dominios gestionados por terceros que prestan servicios 
+                                al titular, como analítica, publicidad o redes sociales.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <h3>4.1 Según su finalidad</h3>
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Finalidad</th>
+                    </tr>
+                </thead>
+                <body>
+                    <tr>
+                        <td><strong>Cookies técnicas o necesarias</strong></td>
+                        <td>Permiten la navegación, el acceso a áreas seguras, la sesión de usuario, la seguridad del sitio y funciones básicas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cookies analíticas</strong></td>
+                        <td>Permiten medir y analizar el comportamiento de los usuarios en el sitio para mejorar contenidos y experiencia.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cookies publicitarias o de marketing</strong></td>
+                        <td>Permiten mostrar publicidad propia o de terceros, incluso personalizada, según la navegación del usuario.</td>
+                    </tr>
+                </body>
+            </table>
+        </div>
+        <h3>4.2 Según su duración</h3>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cookies de sesión</strong></td>
+                            <td>Se eliminan al cerrar el navegador o al finalizar la sesión.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cookies persistentes</strong></td>
+                            <td>Permanecen almacenadas en el dispositivo durante un plazo determinado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- SECCIÓN 5 -->
+        <section class="content-section">
+            <h2>5. Base legal para el uso de cookies</h2>
+            <p>
+                El tratamiento de información derivada del uso de cookies se realizará atendiendo a la naturaleza
+                de cada cookie y a la normativa chilena aplicable.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 6 -->
+        <section class="content-section">
+            <h2>6. Cookies necesarias</h2>
+            <p>
+                Las cookies necesarias se utilizan para permitir el funcionamiento básico del sitio web, garantizar
+                la seguridad, gestionar sesiones o prestar el servicio solicitado por el usuario. Su tratamiento
+                puede fundarse en la necesidad de prestar el servicio y en el interés legítimo del titular de
+                mantener el sitio operativo y seguro.
+            </p>
+
+            <h3>6.1 Cookies analíticas, publicitarias y de marketing</h3>
+            <p>
+                Las cookies analíticas, publicitarias o de marketing que no sean indispensables para la prestación
+                del servicio se utilizarán preferentemente con el <strong>consentimiento del usuario</strong>,
+                otorgado a través del banner o panel de configuración de cookies.
+            </p>
+
+            <p>
+                El usuario podrá aceptar, rechazar o configurar estas cookies, y podrá retirar su consentimiento
+                en cualquier momento mediante las herramientas dispuestas en el sitio o a través de la configuración
+                de su navegador.
+            </p>
+
+            <h3>6.2 Tratamiento de datos personales</h3>
+            <p>
+                Cuando las cookies impliquen tratamiento de datos personales, el titular se compromete a respetar
+                los principios de licitud, finalidad, proporcionalidad, calidad, seguridad y confidencialidad,
+                conforme a la legislación chilena aplicable.
+            </p>                
+        </section>
+
+        <!-- SECCIÓN 7 -->
+        <section class="content-section">
+            <h2>7. Consentimiento del usuario</h2>
+             <p>
+                Al ingresar al sitio web, el usuario verá un banner o aviso de cookies mediante el cual podrá:
+            </p>
+
+            <ul>
+                <li>✅ <strong>Aceptar todas las cookies</strong>.</li>
+                <li>❌ <strong>Rechazar las cookies no esenciales</strong>.</li>
+                <li>⚙️ <strong>Configurar sus preferencias</strong> de manera granular.</li>
+            </ul>
+
+            <p>
+                Para efectos de transparencia y buenas prácticas, el solo hecho de continuar navegando no será
+                considerado como consentimiento válido para instalar cookies no esenciales que impliquen tratamiento
+                de datos personales, salvo que exista una base jurídica diversa conforme a la normativa aplicable.
+            </p>
+
+            <p>
+                La elección del usuario podrá quedar registrada mediante una cookie o mecanismo técnico equivalente,
+                con el único fin de recordar su preferencia. Este registro podrá conservarse por un plazo razonable,
+                recomendado de hasta 12 meses, después del cual podrá volver a solicitarse la elección del usuario.
+            </p>
+
+            <p class="nota">
+                El usuario podrá revocar su consentimiento en cualquier momento eliminando las cookies desde su
+                navegador o modificando su configuración cuando el sitio disponga de un panel de preferencias.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 8 -->
+        <section class="content-section">
+            <h2>8. ¿Cómo gestionar o desactivar las cookies?</h2>
+            <p>
+                El usuario puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la
+                configuración de su navegador. A continuación se indican rutas generales:
+            </p>
+
+            <ul>
+                <li><strong>Google Chrome:</strong> Configuración → Privacidad y seguridad → Cookies y otros datos de sitios.</li>
+                <li><strong>Mozilla Firefox:</strong> Ajustes → Privacidad y seguridad → Cookies y datos del sitio.</li>
+                <li><strong>Safari:</strong> Preferencias → Privacidad → Cookies y datos de sitios web.</li>
+                <li><strong>Microsoft Edge:</strong> Configuración → Cookies y permisos del sitio.</li>
+                <li><strong>Opera:</strong> Configuración → Privacidad y seguridad → Cookies.</li>
+            </ul>
+
+            <p class="aviso">
+                ⚠️ Si el usuario bloquea todas las cookies, algunas funcionalidades del sitio podrían no operar
+                correctamente, especialmente aquellas relacionadas con sesión, formularios, compras o áreas privadas.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 9 -->
+        <section class="content-section">
+            <h2>9. Cookies de terceros y transferencias internacionales</h2>
+             <p>
+                Este sitio web podría utilizar servicios prestados por terceros proveedores, tales como Google,
+                Meta, Microsoft, plataformas de analítica, publicidad, medios de pago o herramientas de atención
+                al cliente. Algunos de estos proveedores pueden encontrarse fuera de Chile.
+            </p>
+
+            <p>
+                Cuando el uso de cookies de terceros implique tratamiento de datos personales o transferencias
+                internacionales, el titular procurará adoptar medidas razonables para que dichos tratamientos se
+                realicen conforme a la normativa aplicable, incluyendo cláusulas contractuales, políticas de
+                privacidad del proveedor u otros mecanismos válidos.
+            </p>
+
+            <p>Para más información sobre terceros comunes, puedes consultar:</p>
+            <ul>
+                <li>
+                    Google:
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+                        https://policies.google.com/privacy
+                    </a>
+                </li>
+                <li>
+                    Meta:
+                    <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer">
+                        https://www.facebook.com/privacy/policy
+                    </a>
+                </li>
+                <li>
+                    Microsoft:
+                    <a href="https://privacy.microsoft.com/es-es/privacystatement" target="_blank" rel="noopener noreferrer">
+                        https://privacy.microsoft.com/es-es/privacystatement
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 10 -->
+        <section class="content-section">
+            <h2>10. Contacto y ejercicio de derechos</h2>
+            <p>
+                Conforme a la legislación chilena, los usuarios podrán ejercer derechos relacionados con sus datos
+                personales, especialmente los de <strong>acceso, rectificación, cancelación y oposición</strong>,
+                cuando corresponda.
+            </p>
+            <p>
+                Asimismo, el usuario podrá retirar su consentimiento para el uso de cookies no esenciales en
+                cualquier momento.
+            </p>
+            <p>Para ejercer estos derechos, el usuario podrá contactar a:</p>
+            <ul>
+                <li><strong>Responsable:</strong> Código 404 Ciberseguridad</li>
+                <li><strong>Correo electrónico:</strong> <a href="codigo404ciberseg@gmail.com">codigo404ciberseg@gmail.com</a></li>
+                <li><strong>Dirección:</strong>Nueva Imperial, IX Región, Chile</li>
+            </ul>
+
+            <p>
+                Código 404 CS, responderá las solicitudes dentro de plazos razonables y conforme a la normativa vigente.
+            </p>
+
+            <p class="nota">
+                Cuando corresponda conforme a la Ley N° 21.719 y sus reglamentos, el usuario también podrá recurrir
+                ante la Agencia de Protección de Datos u organismo competente, según la fecha de entrada en vigencia
+                de dichas normas.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 11 -->
+        <section class="content-section">
+            <h2>11. Plazos de conservación</h2>
+           <p>
+                Las cookies se conservarán únicamente durante el tiempo necesario para cumplir la finalidad para la
+                cual fueron instaladas. Los plazos dependerán del tipo de cookie:
+            </p>
+
+            <ul>
+                <li><strong>Cookies de sesión:</strong> se eliminan al terminar la sesión del navegador.</li>
+                <li><strong>Cookies persistentes:</strong> se conservan por el plazo informado en esta política o por el proveedor correspondiente.</li>
+                <li><strong>Registro de consentimiento:</strong> podrá conservarse por un plazo razonable para acreditar la elección del usuario.</li>
+            </ul>
+        </section>
+
+        <!-- SECCION 12 -->
+         <section class="content-section">
+            <h2>12. Seguridad de la información</h2>
+            <p>
+                El titular adoptará medidas técnicas y organizativas razonables para proteger la información
+                obtenida a través de cookies contra acceso no autorizado, alteración, pérdida, divulgación o
+                destrucción indebida.
+            </p>
+            <p>
+                Sin perjuicio de lo anterior, el usuario debe considerar que ninguna medida de seguridad en Internet
+                es absolutamente infalible.
+            </p>
+         </section>
+
+         <!-- SECCION 13 -->
+          <section class="content-section">
+            <h2>13. Menores de edad</h2>
+            <p>
+                Este sitio web no está dirigido a menores de edad, salvo que se indique expresamente lo contrario.
+                Si el sitio incluyera servicios para menores, se requerirá el consentimiento de sus padres, madres
+                o representantes legales cuando corresponda conforme a la legislación chilena.
+            </p>
+          </section>
+
+          <!-- SECCION 14 -->
+           <section class="content-section">
+            <h2>14. Modificaciones a esta política</h2>
+            <p>
+                El titular podrá actualizar esta Política de Cookies para reflejar cambios en el sitio web, en las
+                cookies utilizadas, en la normativa chilena aplicable o en criterios de autoridades competentes.
+            </p>
+
+            <p>
+                Cualquier modificación relevante será publicada en esta página, indicando la fecha de última
+                actualización. Se recomienda al usuario revisar periódicamente esta política.
+            </p>
+           </section>
+
+           <!-- SECCION 15 -->
+            <section class="content-section">
+                <h2>15. Contacto</h2>
+            <p>
+                Si tienes dudas sobre esta Política de Cookies o sobre el tratamiento de tus datos personales,
+                puedes escribir a:
+            </p>
+            <p>
+                <strong>Código 404 Ciberseguridad</strong><br>
+                Domicilio: Nueva Imperial, IX Región, Chile<br>
+                Correo electrónico: <a href="codigo404ciberseg@gmail.com">codigo404ciberseg@gmail.com</a>
+            </p>
+            </section>
+
+    </main>
+
+    <!-- Footer -->
+     <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🔐 Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="politicadeprivacidad.html">Política de Privacidad</a></li>
+                    <li><a href="terminosdeservicio.html">Términos de Servicio</a></li>
+                    <li><a href="politicadecookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +56 9 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+        <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón Ir Arriba -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir Arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+    <!-- ===== BANNER DE COOKIES ===== -->
+    <div id="banner-cookies" role="dialog" aria-label="Aviso de cookies">
+        <p>
+            🍪 Utilizamos cookies propias y de terceros para fines analíticos y de marketing.
+            Puedes aceptarlas, rechazarlas o configurarlas. Más información en nuestra
+            <a href="#consentimiento" style="color: #fff; text-decoration: underline;">Política de Cookies</a>.
+        </p>
+        <div class="botones">
+            <button type="button" class="btn-aceptar" onclick="gestionarCookies('aceptar')">Aceptar todas</button>
+            <button type="button" class="btn-rechazar" onclick="gestionarCookies('rechazar')">Rechazar</button>
+            <button type="button" class="btn-configurar" onclick="gestionarCookies('configurar')">Configurar</button>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT DEL BANNER ===== -->
+    <script>
+        // Mostrar el banner solo si no hay consentimiento previo
+        document.addEventListener('DOMContentLoaded', function () {
+            const consentimiento = localStorage.getItem('cookie_consent');
+            if (consentimiento) {
+                document.getElementById('banner-cookies').style.display = 'none';
+            }
+        });
+
+        // Gestión básica de la elección del usuario
+        function gestionarCookies(opcion) {
+            localStorage.setItem('cookie_consent', opcion);
+            document.getElementById('banner-cookies').style.display = 'none';
+
+            if (opcion === 'aceptar') {
+                // Aquí se activarían los scripts de cookies no esenciales
+                // (Google Analytics, Meta Pixel, etc.)
+                console.log('Cookies aceptadas.');
+            } else if (opcion === 'rechazar') {
+                console.log('Cookies no esenciales rechazadas.');
+            } else {
+                // Aquí se abriría el panel de configuración granular
+                console.log('Abrir panel de configuración de cookies.');
+                alert('Aquí se abriría el panel de configuración granular de cookies.');
+            }
+        }
+    </script>
+
+</body>
+</html>

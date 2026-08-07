@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificaciones - Código 404 Ciberseguridad</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+        }
+
+        /* --- Corrección de Scroll Para Header Fijo --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        #nosotros,
+        #inicio,
+        #servicios,
+        #contacto,
+        #certificaciones {
+            scroll-margin-top: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.12;
+            z-index: -1;
+        }
+
+        /* --- HEADER / NAVEGACIÓN --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- MENÚ DESPLEGABLE --- */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--bg-darker);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+            border: 1px solid var(--primary-color);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 100px 5% 40px;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px auto 60px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hero-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5));
+            animation: logo-glow 3s ease-in-out infinite;
+            background: transparent;
+        }
+
+        @keyframes logo-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5)); }
+            50% { filter: drop-shadow(0 0 35px rgba(0, 255, 65, 0.8)); }
+        }
+
+        .hero-content {
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+        }
+
+        .hero-btn:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- RADAR (DERECHA) --- */
+        .radar-container {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radar {
+            width: 140px;
+            height: 140px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, rgba(0, 0, 0, 0.8) 70%);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.3), inset 0 0 25px rgba(0, 255, 65, 0.2);
+            overflow: hidden;
+        }
+
+        .radar::before, .radar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            border-radius: 50%;
+        }
+
+        .radar::before { width: 75%; height: 75%; }
+        .radar::after { width: 50%; height: 50%; }
+
+        .radar-scan {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.9), transparent);
+            transform-origin: left center;
+            animation: radar-sweep 2s linear infinite;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        @keyframes radar-sweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .radar-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .dot-1 { top: 30%; left: 60%; animation-delay: 0s; }
+        .dot-2 { top: 65%; left: 25%; animation-delay: 0.5s; }
+        .dot-3 { top: 40%; left: 75%; animation-delay: 1s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .radar-label {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            letter-spacing: 3px;
+            animation: blink 2s ease-in-out infinite;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* --- CERTIFICACIONES & STATS --- */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 30px auto 0;
+        }
+
+        .stat {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.25);
+        }
+
+        .stat h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .stat span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .stat-img {
+            margin-top: 15px;
+            max-width: 100px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+            font-weight: bold;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none; /* Ideal sustituir por menú hamburguesa luego */
+            }
+
+            .hero-logo img, .radar {
+                width: 110px;
+                height: 110px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER / MENÚ -->
+    <header id="inicio">
+        <a class="logo-nav" href="/">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="#tips">Tips</a></li>
+                <li class="dropdown">
+                    <a href="#servicios">Servicios ▾</a>
+                    <div class="dropdown-content">
+                        <a href="analisisforensedigital">Análisis Forense</a>
+                        <a href="auditoriaderedes">Auditoría de Redes</a>
+                        <a href="asesoriaiso27001">Asesoría ISO 27001</a>
+                        <a href="consultoriasoc">Consultoría SOC</a>
+                        <a href="normativacsirt">Normativa CSIRT</a>
+                        <a href="pentesting">Pentesting</a>
+                        <a href="capacitacionesgratis">Cursos Gratis</a>
+                    </div>
+                </li>
+                <li><a href="/clientes">Clientes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" id="certificaciones">
+        <section class="hero">
+            <!-- 1️⃣ LOGO (IZQUIERDA) -->
+            <div class="hero-logo">
+                <img src="Logo Digital CD-404.jpg" alt="Código 404 Logo">
+            </div>
+
+            <!-- 2️⃣ TÍTULO PRINCIPAL (CENTRO) -->
+            <div class="hero-content">
+                <h1>Certificaciones Profesionales</h1>
+                <p>Más de 40 certificaciones nacionales e internacionales respaldan nuestra formación continua.</p>
+                <a href="#contacto" class="hero-btn">Contáctanos</a>
+            </div>
+
+            <!-- 3️⃣ RADAR (DERECHA) -->
+            <div class="radar-container">
+                <div class="radar">
+                    <div class="radar-scan"></div>
+                    <div class="radar-dot dot-1"></div>
+                    <div class="radar-dot dot-2"></div>
+                    <div class="radar-dot dot-3"></div>
+                </div>
+                <span class="radar-label">MONITOREO ACTIVO</span>
+            </div>
+        </section>
+
+        <!-- TARJETAS DE CERTIFICACIONES -->
+        <section class="stats">
+            <div class="stat">
+                <h3>IACC</h3>
+                <span>Instituto Profesional de Artes y Ciencias de la Comunicación</span>
+                <p>- Diplomado en Principios de Hacking Ético</p>
+                <p>- Diplomado en Fundamentos de Ciberseguridad y Redes Inalámbricas</p>
+            </div>
+
+            <div class="stat">
+                <h3>USACH</h3>
+                <span>Universidad de Santiago de Chile</span>
+                <p>- Riesgos Críticos de Ciberseguridad y Privacidad</p>
+            </div>
+
+            <div class="stat">
+                <h3>HM</h3>
+                <span>Hacker Mentor - Academia</span>
+                <p>- Ciberseguridad y Ethical Hacking</p>
+            </div>
+
+            <div class="stat">
+                <h3>Academia de Capacitaciones en Ciberseguridad</h3>
+                <span>Diplomados en Ciberseguridad</span>
+                <p>- Red Team y Linux</p>
+                <p>- Conectividad y Redes</p>
+            </div>
+
+            <div class="stat">
+                <h3>CISCO</h3>
+                <span>Academia Netacad</span>
+                <p>- Conceptos Básicos de Hardware</p>
+                <p>- Seguridad de Terminales</p>
+                <p>- Introducción a Cisco Packet Tracer</p>
+                <p>- Introducción al Internet de las Cosas y Transformación Digital</p>
+                <p>- Defensa de la Red</p>
+                <p>- Carrera Profesional de Analista Junior en Ciberseguridad</p>
+                <p>- Conceptos Básicos de Redes</p>
+                <p>- Exploración de IoT con Cisco Packet Tracer</p>
+                <p>- Exploración de redes con Cisco Packet Tracer</p>
+                <p>- Hacker ético</p>
+                <p>- Introducción a Ciberseguridad</p>
+            </div>
+
+            <div class="stat">
+                <h3>IBM</h3>
+                <span>Academia SkillsBuild</span>
+                <p>- Web Development with Python</p>
+                <p>- Web Development Fundamentals</p>
+                <p>- User Experience Design Fundamentals</p>
+                <p>- Customer Engagement: Problem Solving and Process Controls</p>
+                <p>- Customer Engagement: Communication and Personality Dynamics</p>
+                <p>- Security Operations Center in Practice</p>
+                <p>- Python for Data Science</p>
+                <p>- Project Management Fundamentals</p>
+                <p>- Information Technology Fundamentals</p>
+                <p>- Getting Started with Generative AI</p>
+                <p>- Getting Started with Artificial Intelligence</p>
+                <p>- Entrepreneurship Marketing Essentials</p>
+                <p>- Entrepreneurship Business Essentials</p>
+                <p>- Enterprise Design Thinking Practitioner</p>
+                <p>- Digital Mindset</p>
+                <p>- Digital Literacy</p>
+                <p>- Data Visualization Using Python</p>
+                <p>- Data Fundamentals</p>
+                <p>- Data Analysis Using Python</p>
+                <p>- Cybersecurity Fundamentals</p>
+                <p>- Customer Engagement Fundamentals</p>
+                <p>- Cloud Computing Fundamentals</p>
+                <p>- Career Management Essentials</p>
+                <p>- Big Data Foundations - Level 2</p>
+                <p>- Big Data Foundations - Level 1</p>
+                <p>- Artificial Intelligence Fundamentals</p>
+                <p>- AI Literacy</p>
+                <p>- Agile Explorer</p>
+            </div>
+
+            <div class="stat">
+                <h3>Palo Alto</h3>
+                <span>Networks Academy</span>
+                <p>- Security Operations Fundamentals</p>
+                <p>- Cybersecurity Apprentice</p>
+                <p>- Cybersecurity Practitioner</p>
+                <p>- Cloud Security Professional</p>
+            </div>
+
+            <div class="stat">
+                <h3>ESET</h3>
+                <span>Academia</span>
+                <p>- ESET Protect Cloud</p>
+                <p>- Gestion y Respuesta a Incidentes</p>
+                <p>- Navegación Segura</p>
+                <p>- Seguridad en las Transacciones Comerciales en Linea</p>
+                <p>- Seguridad Movil</p>
+                <p>- Seguridad para PYMES</p>
+                <p>- Uso Seguro de Medios Informáticos</p>
+            </div>
+
+            <div class="stat">
+                <h3>8.8</h3>
+                <span>Academia de Ciberseguridad</span>
+                <p>- AMSC - Actualización y Tendencias Profesionales</p>
+                <p>- AMSC - Auditoría a la Ciberseguridad</p>
+                <p>- AMSC - Linux 101</p>
+                <p>- AMSC - Pentesting 101</p>
+                <p>- AMSC - Rol del Analista SOC</p>
+                <p>- v2 - Fundamentos de Ciberseguridad Ciudadana</p>
+                <p>- Fundamentos de Ciberseguridad para servicios esenciales y los operadores de importancia vital</p>
+                <p>- Fundamentos del Rol del CISO</p>
+                <p>- Fundamentos DPO según RGPD y Ley N° 21.719 de Proteccion de datos en Chile</p>
+                <p>- v1 - Inteligencia Artificial desafios y oportunidades</p>
+            </div>
+
+            <div class="stat">
+                <h3>Red Team Leaders</h3>
+                <span>Academy</span>
+                <p>- Técnicas Prácticas de Evasión AV/EDR</p>
+                <p>- Fundamentos de Análisis de Registros para la Ciberdefensa</p>
+                <p>- Fundamentos del Desarrollo de Hacking en Videojuegos</p>
+                <p>- Introducción al Programa de Recompensas por Errores</p>
+                <p>- Introducción a la Seguridad Ofensiva con IA</p>
+                <p>- Introducción a Python para la Seguridad Ofensiva</p>
+                <p>- Introducción a Python para la Seguridad Defensiva</p>
+                <p>- Introducción a la Gestion de Operaciones del Red Team</p>
+                <p>- Introducción al Análisis de Malware v1</p>
+                <p>- Introducción al Desarrollo Ofensivo para Windows v1</p>
+                <p>- Seguridad Operativa y Anonimato para Red Teams</p>
+                <p>- Purple Team - Active Directory and AzureAD v1</p>
+                <p>- Introducción al Combate y la Investigación del CSAM</p>
+                <p>- Técnicas de Spear-Phishing y Seguridad Operativa</p>
+                <p>- Introducción al Hackeo de Atención Médica</p>
+                <p>- Fundamentos de Pruebas de Penetración</p>
+                <p>- Introducción a la API de Windows para Red Team</p>
+                <p>- Introducción a la Inteligencia & Contrainteligencia</p>
+                <p>- Windows Kernel Exploitation Introduction v1</p>
+            </div>
+
+            <div class="stat">
+                <h3>CSIRT Chile</h3>
+                <span>Academia de la Agencia Nacional de Ciberseguridad ANCI</span>
+                <p>- Ciberseguridad: Phishing y Fraude Digital</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404</h3>
+                <p>Soluciones avanzadas en ciberseguridad, auditoría y protección de infraestructura digital.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button id="btn-back-to-top" title="Volver arriba">▲</button>
+
+    <!-- JS PARA EL BOTÓN VOLVER ARRIBA -->
+    <script>
+        const btnBackToTop = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnBackToTop.style.display = "block";
+            } else {
+                btnBackToTop.style.display = "none";
+            }
+        };
+
+        btnBackToTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+</body>
+</html>

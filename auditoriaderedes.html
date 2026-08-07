@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Redes - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* --- GRID DE IMÁGENES --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s;
+            height: 280px;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .image-card:hover img {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* --- CARDS DE SERVICIOS --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- PROCESO PASO A PASO --- */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- CARACTERÍSTICAS --- */
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features-list li {
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            font-size: 1.05rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* --- HIGHLIGHT BOX --- */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '⚡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--bg-dark);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* --- ÁREAS DE AUDITORÍA --- */
+        .audit-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .audit-card {
+            background: var(--bg-card);
+            border-left: 4px solid var(--info);
+            padding: 25px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .audit-card:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(10px);
+        }
+
+        .audit-card h4 {
+            color: var(--info);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- ESTADÍSTICAS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 30px 20px; }
+            .image-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .step { flex-direction: column; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="#" class="active">Auditoría Redes</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon">🌐</div>
+            <h1>Auditoría de Redes</h1>
+            <p>Evaluación integral de tu infraestructura de red. Identificamos vulnerabilidades, configuraciones inseguras y riesgos para fortalecer tu postura de seguridad.</p>
+        </section>
+
+        <!-- ¿QUÉ ES AUDITORÍA DE REDES? -->
+        <section class="section">
+            <h2>¿Qué es la Auditoría de Redes?</h2>
+            <p>La <strong>Auditoría de Redes</strong> es un proceso sistemático de evaluación y análisis de la infraestructura de red de una organización para identificar vulnerabilidades, configuraciones inseguras, políticas deficientes y riesgos de seguridad que podrían ser explotados por atacantes.</p>
+            
+            <div class="highlight-box">
+                <h3>¿Por qué es Crítico?</h3>
+                <p>El 78% de las brechas de seguridad comienzan con vulnerabilidades en la red. Una auditoría regular te permite detectar y corregir problemas antes de que se conviertan en incidentes costosos.</p>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="Infraestructura.png">
+                    <div class="image-overlay">Infraestructura de Red</div>
+                </div>
+                <div class="image-card">
+                    <img src="servidores y switches.jpg" alt="Servidores y Switches">
+                    <div class="image-overlay">Servidores y Switches</div>
+                </div>
+                <div class="image-card">
+                    <img src="seguridad de red.jpg" alt="Seguridad de Red">
+                    <div class="image-overlay">Seguridad de Red</div>
+                </div>
+            </div>
+
+            <p>Nuestros auditores certificados analizan cada componente de tu red: firewalls, routers, switches, servidores, puntos de acceso inalámbrico y políticas de seguridad, entregando un informe detallado con hallazgos y recomendaciones de remediación.</p>
+        </section>
+
+        <!-- ESTADÍSTICAS DE IMPACTO -->
+        <section class="section">
+            <h2>Impacto de una Auditoría de Red</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Brechas por vulnerabilidades de red</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">Reducción de riesgos detectados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Mejora en tiempo de respuesta</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Cumplimiento normativo</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÁREAS DE AUDITORÍA -->
+        <section class="section">
+            <h2>Áreas de Auditoría</h2>
+            <p>Evaluamos todos los componentes críticos de tu infraestructura de red:</p>
+            
+            <div class="audit-areas">
+                <div class="audit-card">
+                    <h4>🔥 Firewalls</h4>
+                    <p>Revisión de reglas, políticas de acceso, configuraciones y efectividad de la segmentación de red.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>📡 Redes Inalámbricas</h4>
+                    <p>Análisis de puntos de acceso, cifrado WPA2/WPA3, autenticación y detección de redes rogue.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>🖥️ Servidores</h4>
+                    <p>Evaluación de sistemas operativos, parches de seguridad, servicios expuestos y hardening.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>🔌 Switches y Routers</h4>
+                    <p>Configuraciones de VLANs, ACLs, protocolos de enrutamiento y gestión de dispositivos.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>🔐 VPN y Acceso Remoto</h4>
+                    <p>Revisión de túneles VPN, autenticación multifactor, cifrado y políticas de acceso remoto.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>📊 Monitoreo y Logs</h4>
+                    <p>Evaluación de sistemas SIEM, recolección de logs, alertas y capacidad de detección de incidentes.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>🌐 Segmentación de Red</h4>
+                    <p>Análisis de zonas de seguridad, DMZ, separación de redes críticas y control de tráfico lateral.</p>
+                </div>
+
+                <div class="audit-card">
+                    <h4>📋 Políticas y Procedimientos</h4>
+                    <p>Revisión de documentación, políticas de seguridad, procedimientos de respuesta y gobernanza.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- METODOLOGÍA -->
+        <section class="section">
+            <h2>Metodología de Auditoría</h2>
+            <p>Seguimos estándares internacionales (ISO 27001, NIST, CIS Controls) para garantizar auditorías exhaustivas:</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Planificación y Alcance</h3>
+                        <p>Definimos el alcance de la auditoría, identificamos activos críticos, establecemos reglas de compromiso y coordinamos ventanas de mantenimiento para minimizar impacto operacional.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Recolección de Información</h3>
+                        <p>Documentamos la arquitectura de red actual, recopilamos configuraciones, diagramas de red, políticas de seguridad y realizamos entrevistas con el personal técnico.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Evaluación Técnica</h3>
+                        <p>Realizamos escaneos de vulnerabilidades, análisis de configuraciones, pruebas de conectividad, revisión de reglas de firewall y evaluación de controles de seguridad.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Análisis de Riesgos</h3>
+                        <p>Clasificamos hallazgos por nivel de riesgo (crítico, alto, medio, bajo), evaluamos impacto potencial y priorizamos recomendaciones de remediación.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Informe y Recomendaciones</h3>
+                        <p>Entregamos informe ejecutivo y técnico detallado con hallazgos, evidencias, nivel de riesgo y plan de remediación con cronograma recomendado.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Seguimiento y Re-Auditoría</h3>
+                        <p>Ofrecemos seguimiento para verificar implementación de correcciones y realizamos re-auditorías para validar efectividad de las mejoras.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIPOS DE AUDITORÍA -->
+        <section class="section">
+            <h2>Tipos de Auditoría de Red</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Auditoría Interna</h3>
+                    <p>Evaluación completa de la red interna de la organización, incluyendo segmentación, controles de acceso y políticas de seguridad internas.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3>Auditoría Externa</h3>
+                    <p>Análisis de la superficie de ataque externa, servicios expuestos a internet, perimeter security y vulnerabilidades accesibles desde fuera.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Redes Inalámbricas</h3>
+                    <p>Auditoría específica de infraestructura WiFi: cifrado, autenticación, cobertura, detección de APs no autorizados y ataques WPS.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">☁️</div>
+                    <h3>Infraestructura Cloud</h3>
+                    <p>Evaluación de redes en entornos cloud (AWS, Azure, GCP): VPCs, security groups, NACLs y conectividad híbrida.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏭</div>
+                    <h3>Redes Industriales (OT)</h3>
+                    <p>Auditoría especializada para entornos SCADA/ICS: segmentación IT/OT, protocolos industriales y seguridad operacional.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📞</div>
+                    <h3>Voz sobre IP (VoIP)</h3>
+                    <p>Evaluación de seguridad en infraestructura de telefonía IP: cifrado de llamadas, autenticación y protección contra fraudes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUÉ INCLUYE EL SERVICIO -->
+        <section class="section">
+            <h2>¿Qué Incluye Nuestro Servicio?</h2>
+            
+            <ul class="features-list">
+                <li><strong>Escaneo de Vulnerabilidades:</strong> Uso de herramientas profesionales (Nessus, Qualys, OpenVAS)</li>
+                <li><strong>Revisión de Configuraciones:</strong> Análisis de configs de firewalls, routers, switches</li>
+                <li><strong>Mapa de Red Actualizado:</strong> Diagrama detallado de tu infraestructura actual</li>
+                <li><strong>Informe Ejecutivo:</strong> Resumen para dirección con hallazgos críticos y ROI</li>
+                <li><strong>Informe Técnico:</strong> Documentación detallada para equipo de TI con evidencias</li>
+                <li><strong>Plan de Remediación:</strong> Hoja de ruta priorizada para corregir vulnerabilidades</li>
+                <li><strong>Sesión de Presentación:</strong> Reunión para explicar hallazgos y responder preguntas</li>
+                <li><strong>Soporte Post-Auditoría:</strong> Asesoría durante implementación de correcciones</li>
+            </ul>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="analisis de red.jpg" alt="Análisis de Red">
+                    <div class="image-overlay">Análisis de Red</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop" alt="Documentación Técnica">
+                    <div class="image-overlay">Documentación Técnica</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS -->
+        <section class="section">
+            <h2>Beneficios de una Auditoría de Red</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Prevención de Incidentes</h3>
+                    <p>Identifica y corrige vulnerabilidades antes de que sean explotadas por atacantes, reduciendo significativamente el riesgo de brechas.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📜</div>
+                    <h3>Cumplimiento Normativo</h3>
+                    <p>Demuestra cumplimiento con ISO 27001, PCI-DSS, GDPR, Ley de Ciberseguridad y otros marcos regulatorios.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Reducción de Costos</h3>
+                    <p>Prevenir un incidente es mucho más económico que responder a una brecha. ROI significativo en seguridad proactiva.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Mejora Continua</h3>
+                    <p>Establece una línea base de seguridad y permite medir mejoras a lo largo del tiempo con auditorías periódicas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERRAMIENTAS -->
+        <section class="section">
+            <h2>Herramientas Utilizadas</h2>
+            <p>Empleamos las herramientas más reconocidas de la industria para auditorías de red:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Escaneo de Vulnerabilidades</h3>
+                    <p>Tenable Nessus, Qualys VMDR, Rapid7 Nexpose, OpenVAS, Nmap</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Análisis de Configuraciones</h3>
+                    <p>Tufin, AlgoSec, FireMon, RANCID, SolarWinds NCM</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📡</div>
+                    <h3>Análisis de Red Inalámbrica</h3>
+                    <p>Ekahau, AirMagnet, Kismet, Aircrack-ng, Wireshark</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🔒 ¿Tu Red Está Realmente Segura?</h2>
+            <p>No esperes a sufrir un incidente para evaluar tu seguridad. Agenda tu auditoría de red con nuestros expertos certificados y obtén una visión clara de tu postura de seguridad actual.</p>
+            <a href="index.html#contacto" class="cta-btn">Solicitar Auditoría</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

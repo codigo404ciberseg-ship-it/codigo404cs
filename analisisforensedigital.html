@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Forense Digital - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* --- GRID DE IMÁGENES --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s;
+            height: 280px;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .image-card:hover img {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* --- CARDS DE SERVICIOS --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- PROCESO PASO A PASO --- */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- CARACTERÍSTICAS --- */
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features-list li {
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            font-size: 1.05rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* --- HIGHLIGHT BOX --- */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '⚡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--bg-dark);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* --- ESCENARIOS DE USO --- */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .scenario-card {
+            background: var(--bg-card);
+            border-left: 4px solid var(--warning);
+            padding: 25px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .scenario-card:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(10px);
+        }
+
+        .scenario-card h4 {
+            color: var(--warning);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 30px 20px; }
+            .image-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .step { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="#" class="active">Forense Digital</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon">🔍</div>
+            <h1>Análisis Forense Digital</h1>
+            <p>Investigación especializada de incidentes de seguridad. Preservamos, analizamos y presentamos evidencia digital con validez legal para respaldar tus casos.</p>
+        </section>
+
+        <!-- ¿QUÉ ES FORENSE DIGITAL? -->
+        <section class="section">
+            <h2>¿Qué es el Análisis Forense Digital?</h2>
+            <p>El <strong>Análisis Forense Digital</strong> es la disciplina científica que se encarga de la preservación, identificación, extracción, documentación e interpretación de evidencia digital almacenada en dispositivos electrónicos.</p>
+            
+            <div class="highlight-box">
+                <h3>Importancia Crítica</h3>
+                <p>Cada segundo cuenta después de un incidente de seguridad. Nuestro equipo actúa rápidamente para preservar evidencia antes de que sea alterada o destruida, garantizando la cadena de custodia y la validez legal del proceso.</p>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop" alt="Investigación Digital">
+                    <div class="image-overlay">Investigación Digital</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop" alt="Evidencia Digital">
+                    <div class="image-overlay">Evidencia Digital</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" alt="Análisis Forense">
+                    <div class="image-overlay">Análisis Forense</div>
+                </div>
+            </div>
+
+            <p>Nuestros peritos forenses certificados utilizan herramientas y metodologías reconocidas internacionalmente para garantizar que toda evidencia sea admisible en procesos judiciales, administrativos o corporativos.</p>
+        </section>
+
+        <!-- TIPOS DE ANÁLISIS FORENSE -->
+        <section class="section">
+            <h2>Tipos de Análisis Forense</h2>
+            <p>Ofrecemos servicios especializados en diferentes áreas de la forense digital:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Computadores y Laptops</h3>
+                    <p>Análisis completo de discos duros, memoria RAM, registros del sistema, archivos eliminados, historiales de navegación y actividad del usuario en sistemas Windows, macOS y Linux.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Dispositivos Móviles</h3>
+                    <p>Extracción y análisis de smartphones y tablets (iOS y Android): mensajes, llamadas, ubicaciones GPS, aplicaciones, redes sociales y datos en la nube.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">☁️</div>
+                    <h3>Forense en la Nube</h3>
+                    <p>Investigación de incidentes en entornos cloud (AWS, Azure, Google Cloud), análisis de logs, accesos no autorizados y recuperación de datos en servicios SaaS.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Forense de Redes</h3>
+                    <p>Análisis de tráfico de red, capturas de paquetes (PCAP), detección de intrusiones, identificación de ataques y reconstrucción de actividades maliciosas.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📧</div>
+                    <h3>Correo Electrónico</h3>
+                    <p>Análisis forense de emails: headers, rastreo de origen, phishing, business email compromise (BEC) y recuperación de mensajes eliminados.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💾</div>
+                    <h3>Recuperación de Datos</h3>
+                    <p>Recuperación de archivos eliminados, particiones dañadas, discos formateados y dispositivos con fallas físicas o lógicas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- METODOLOGÍA -->
+        <section class="section">
+            <h2>Metodología Forense</h2>
+            <p>Seguimos estándares internacionales (ISO 27037, NIST) para garantizar la integridad y validez legal de la evidencia:</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Identificación y Preservación</h3>
+                        <p>Identificamos fuentes de evidencia digital y aplicamos medidas inmediatas para preservar su integridad. Aislamos dispositivos, documentamos el estado inicial y prevenimos la alteración de datos.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Adquisición Forense</h3>
+                        <p>Realizamos copias forenses bit-a-bit (imágenes forenses) de los dispositivos utilizando hardware y software especializado, calculando hashes criptográficos (MD5, SHA-256) para garantizar la integridad.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Análisis y Examen</h3>
+                        <p>Examinamos la evidencia utilizando herramientas forenses avanzadas (EnCase, FTK, X-Ways, Cellebrite). Buscamos patrones, recuperamos datos eliminados, analizamos metadatos y reconstruimos la línea de tiempo de eventos.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Documentación y Cadena de Custodia</h3>
+                        <p>Documentamos exhaustivamente cada paso del proceso, manteniendo registros detallados de la cadena de custodia para garantizar la trazabilidad y admisibilidad legal de la evidencia.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Informe Pericial y Presentación</h3>
+                        <p>Elaboramos informes técnicos y ejecutivos detallados con hallazgos, conclusiones y evidencias. Podemos actuar como peritos expertos en procesos judiciales o arbitrajes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESCENARIOS DE APLICACIÓN -->
+        <section class="section">
+            <h2>Escenarios de Aplicación</h2>
+            <p>Nuestros servicios forenses son esenciales en diversas situaciones:</p>
+            
+            <div class="scenarios-grid">
+                <div class="scenario-card">
+                    <h4>🚨 Incidentes de Seguridad</h4>
+                    <p>Investigación de brechas de datos, ransomware, intrusiones no autorizadas y compromisos de sistemas.</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>⚖️ Procesos Legales</h4>
+                    <p>Evidencia digital para juicios civiles, penales, laborales, familiares y comerciales.</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>👔 Fraude Corporativo</h4>
+                    <p>Investigación de malversación, robo de información, conflicto de intereses y uso indebido de recursos.</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>🔒 Fuga de Información</h4>
+                    <p>Detección y análisis de filtraciones de datos confidenciales, propiedad intelectual o secretos comerciales.</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h4> Recursos Humanos</h4>
+                    <p>Investigación de acoso laboral, discriminación, violación de políticas de uso aceptable.</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h4>🛡️ Cumplimiento Normativo</h4>
+                    <p>Investigaciones requeridas por regulaciones (GDPR, Ley de Protección de Datos, SOX, CSIRT Chile).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUÉ INCLUYE EL SERVICIO -->
+        <section class="section">
+            <h2>¿Qué Incluye Nuestro Servicio?</h2>
+            
+            <ul class="features-list">
+                <li><strong>Respuesta 24/7:</strong> Disponibilidad inmediata para incidentes críticos</li>
+                <li><strong>Peritos Certificados:</strong> Profesionales con certificaciones internacionales (CHFI, GCFA, EnCE, Cisco, IBM.)</li>
+                <li><strong>Equipamiento Especializado:</strong> Hardware y software forense de última generación</li>
+                <li><strong>Cadena de Custodia:</strong> Documentación completa que garantiza la validez legal</li>
+                <li><strong>Confidencialidad Total:</strong> Acuerdos de confidencialidad (NDA) estrictos</li>
+                <li><strong>Informes Detallados:</strong> Documentación técnica y ejecutiva comprensible</li>
+                <li><strong>Testimonio Pericial:</strong> Acompañamiento en procesos judiciales si es requerido</li>
+                <li><strong>Recomendaciones:</strong> Medidas preventivas para evitar futuros incidentes</li>
+            </ul>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="Laboratorio Forense Digital.jpg" alt="Laboratorio Forense">
+                    <div class="image-overlay">Laboratorio Forense</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2070&auto=format&fit=crop" alt="Análisis de Evidencia">
+                    <div class="image-overlay">Análisis de Evidencia</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERRAMIENTAS Y TECNOLOGÍAS -->
+        <section class="section">
+            <h2>Herramientas y Tecnologías</h2>
+            <p>Utilizamos las herramientas forenses más reconocidas de la industria:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Software Forense</h3>
+                    <p>EnCase Forensic, FTK (Forensic Toolkit), X-Ways Forensics, Autopsy, Cellebrite UFED, Magnet AXIOM</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💿</div>
+                    <h3>Hardware Especializado</h3>
+                    <p>Tableau Forensic Bridges, write-blockers, estaciones de adquisición, equipos de recuperación de datos</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔐</div>
+                    <h3>Análisis Avanzado</h3>
+                    <p>Volatility (memoria RAM), Wireshark (redes), RegRipper (registro Windows), herramientas de steganografía</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🔒 Necesitas Investigación Forense Urgente</h2>
+            <p>No pierdas evidencia crítica. Nuestro equipo de peritos forenses está disponible para responder rápidamente a tus incidentes. Preservamos la evidencia digital con estándares legales internacionales.</p>
+            <a href="index.html#contacto" class="cta-btn">Solicitar Investigación</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>                    
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

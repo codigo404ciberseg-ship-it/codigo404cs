@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos de Servicio - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .last-update {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        /* --- SECCIONES DE CONTENIDO --- */
+        .content-section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .content-section h3 {
+            color: #00d4ff;
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section ul li::marker {
+            color: var(--primary-color);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 212, 255, 0.05));
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.05), rgba(255, 68, 68, 0.05));
+            border: 1px solid #ffaa00;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .warning-box h4 {
+            color: #ffaa00;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- CONTACTO INFO --- */
+        .contact-info {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .contact-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .content-section { padding: 25px 20px; }
+            .content-section h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="#" class="active">Términos de Servicio</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>📋 Términos de Servicio</h1>
+            <p>Condiciones generales de contratación y uso de servicios</p>
+            <div class="last-update">📅 Última actualización: Marzo 2026</div>
+        </section>
+
+        <!-- ACEPTACIÓN DE TÉRMINOS -->
+        <section class="content-section">
+            <h2>1. Aceptación de los Términos</h2>
+            <p>Al contratar los servicios de <strong>Código 404 Ciberseguridad</strong>, usted o empresa acepta estar legalmente obligado por estos Términos de Servicio. Si no está de acuerdo con alguno de estos términos, le solicitamos no contratar nuestros servicios.</p>
+            
+            <div class="highlight-box">
+                <h4>⚠️ Importante</h4>
+                <p>La contratación de cualquiera de nuestros servicios implica la aceptación íntegra de estos términos sin modificaciones. Cualquier modificación debe ser acordada por escrito entre ambas partes.</p>
+            </div>
+        </section>
+
+        <!-- DESCRIPCIÓN DE SERVICIOS -->
+        <section class="content-section">
+            <h2>2. Descripción de los Servicios</h2>
+            <p>Código 404 Ciberseguridad ofrece servicios profesionales de ciberseguridad que incluyen, pero no se limitan a:</p>
+            
+            <ul>
+                <li><strong>Pentesting:</strong> Pruebas de penetración éticas en aplicaciones web, infraestructura, redes y sistemas.</li>
+                <li><strong>Análisis Forense Digital:</strong> Investigación de incidentes de seguridad y preservación de evidencia digital.</li>
+                <li><strong>Auditoría de Redes:</strong> Evaluación de infraestructura de red y detección de vulnerabilidades.</li>
+                <li><strong>Asesoría ISO 27001:</strong> Implementación de sistemas de gestión de seguridad de la información.</li>
+                <li><strong>Consultoría SOC:</strong> Diseño e implementación de Security Operations Center.</li>
+                <li><strong>Normativa CSIRT:</strong> Asesoría en cumplimiento de Ley Marco de Ciberseguridad chilena.</li>
+                <li><strong>Capacitaciones:</strong> Formación y concientización en ciberseguridad.</li>
+            </ul>
+
+            <p>Los servicios específicos a prestar serán detallados en la propuesta comercial y/o contrato particular para cada cliente.</p>
+        </section>
+
+        <!-- OBLIGACIONES DEL CLIENTE -->
+        <section class="content-section">
+            <h2>3. Obligaciones del Cliente</h2>
+            <p>Para la correcta prestación de los servicios, el cliente se compromete a:</p>
+            
+            <ul>
+                <li><strong>Autorización escrita:</strong> Proporcionar autorización por escrito para realizar pruebas de seguridad en sus sistemas y redes.</li>
+                <li><strong>Información veraz:</strong> Entregar información completa, veraz y actualizada sobre su infraestructura tecnológica.</li>
+                <li><strong>Acceso necesario:</strong> Facilitar los accesos, credenciales y permisos requeridos para la ejecución de los servicios.</li>
+                <li><strong>Personal de contacto:</strong> Designar un responsable técnico como punto de contacto durante la prestación del servicio.</li>
+                <li><strong>Backup de datos:</strong> Realizar copias de seguridad de sus sistemas antes de pruebas de penetración o auditorías.</li>
+                <li><strong>Confidencialidad:</strong> Mantener confidencialidad sobre metodologías y herramientas utilizadas por la empresa.</li>
+                <li><strong>Pago oportuno:</strong> Cancelar los honorarios en los plazos y formas acordadas.</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>⚠️ Responsabilidad del Cliente</h4>
+                <p>El cliente es responsable de contar con los respaldos necesarios antes de cualquier prueba de seguridad. Código 404 Ciberseguridad no se hace responsable por pérdida de datos si el cliente no realizó backups previos recomendados.</p>
+            </div>
+        </section>
+
+        <!-- ALCANCE Y LIMITACIONES -->
+        <section class="content-section">
+            <h2>4. Alcance y Limitaciones del Servicio</h2>
+            
+            <h3>4.1 Límites del Pentesting:</h3>
+            <ul>
+                <li>Las pruebas se realizan únicamente en los sistemas y rangos de IP autorizados por escrito.</li>
+                <li>No se incluyen ataques de ingeniería social física sin autorización expresa.</li>
+                <li>No se garantiza la identificación del 100% de las vulnerabilidades existentes.</li>
+                <li>Las pruebas son una fotografía del momento y no garantizan seguridad futura.</li>
+            </ul>
+
+            <h3>4.2 Límites de la Asesoría:</h3>
+            <ul>
+                <li>La asesoría ISO 27001 no garantiza la certificación final (depende del organismo certificador).</li>
+                <li>El cumplimiento normativo requiere implementación por parte del cliente.</li>
+                <li>Las recomendaciones deben ser implementadas por el cliente o contratando servicios adicionales.</li>
+            </ul>
+
+            <h3>4.3 Límites de Responsabilidad:</h3>
+            <ul>
+                <li>No nos responsabilizamos por interrupciones del servicio causadas por terceros (ISP, proveedores cloud, etc.).</li>
+                <li>No garantizamos que los sistemas sean invulnerables después de nuestros servicios.</li>
+                <li>La ciberseguridad es un proceso continuo, no un estado permanente.</li>
+            </ul>
+        </section>
+
+        <!-- CONFIDENCIALIDAD -->
+        <section class="content-section">
+            <h2>5. Confidencialidad y NDA</h2>
+            <p>Como empresa de ciberseguridad, entendemos la importancia crítica de la confidencialidad:</p>
+            
+            <ul>
+                <li><strong>Acuerdo de Confidencialidad:</strong> Todos los proyectos incluyen un NDA (Non-Disclosure Agreement) que protege la información del cliente.</li>
+                <li><strong>Información del cliente:</strong> Tratamos como confidencial toda información, datos, infraestructura y hallazgos descubiertos durante el servicio.</li>
+                <li><strong>Información de la empresa:</strong> El cliente se compromete a no divulgar metodologías, herramientas propietarias y know-how de Código 404 Ciberseguridad.</li>
+                <li><strong>Excepciones:</strong> La confidencialidad no aplica para información que sea de dominio público, requerida por ley u orden judicial.</li>
+                <li><strong>Duración:</strong> La obligación de confidencialidad permanece vigente por 5 años después de finalizado el servicio.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>🔒 Compromiso de Seguridad</h4>
+                <p>Todo el personal de Código 404 Ciberseguridad firma acuerdos de confidencialidad individuales y está sujeto a políticas estrictas de manejo de información sensible.</p>
+            </div>
+        </section>
+
+        <!-- PROPIEDAD INTELECTUAL -->
+        <section class="content-section">
+            <h2>6. Propiedad Intelectual</h2>
+            
+            <h3>6.1 Propiedad del Cliente:</h3>
+            <ul>
+                <li>El cliente mantiene todos los derechos sobre sus sistemas, datos, infraestructura e información preexistente.</li>
+                <li>Los informes finales entregados son propiedad del cliente para uso interno.</li>
+            </ul>
+
+            <h3>6.2 Propiedad de la Empresa:</h3>
+            <ul>
+                <li>Código 404 Ciberseguridad mantiene propiedad sobre metodologías, scripts, herramientas y plantillas desarrolladas.</li>
+                <li>Los informes no pueden ser compartidos públicamente sin autorización escrita (excepto para fines de cumplimiento normativo).</li>
+                <li>El logo y certificaciones de la empresa no pueden ser usados por el cliente sin permiso explícito.</li>
+            </ul>
+        </section>
+
+        <!-- HONORARIOS Y PAGO -->
+        <section class="content-section">
+            <h2>7. Honorarios y Condiciones de Pago</h2>
+            
+            <ul>
+                <li><strong>Presupuesto:</strong> Los honorarios se detallan en la propuesta comercial aceptada por el cliente.</li>
+                <li><strong>Forma de pago:</strong> Transferencia bancaria, cheque o lo acordado en contrato particular.</li>
+                <li><strong>Anticipo:</strong> Se requiere 50% de anticipo para iniciar servicios profesionales.</li>
+                <li><strong>Saldo:</strong> 50% restante contra entrega de informe final o según cronograma acordado.</li>
+                <li><strong>Plazo de pago:</strong> Máximo 30 días desde emisión de factura.</li>
+                <li><strong>Mora:</strong> Pagos atrasados generan interés del 1.5% mensual.</li>
+                <li><strong>Suspensión:</strong> Nos reservamos el derecho de suspender servicios por mora superior a 60 días.</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>💰 Reembolsos</h4>
+                <p>Los servicios profesionales de ciberseguridad no son reembolsables una vez iniciada la ejecución. En caso de cancelación por parte del cliente, se cobrará el tiempo y recursos ya utilizados hasta la fecha de cancelación.</p>
+            </div>
+        </section>
+
+        <!-- DURACIÓN Y TERMINACIÓN -->
+        <section class="content-section">
+            <h2>8. Duración y Terminación del Contrato</h2>
+            
+            <h3>8.1 Duración:</h3>
+            <ul>
+                <li>Los servicios se prestan por el plazo establecido en la propuesta comercial o contrato particular.</li>
+                <li>Servicios de monitoreo continuo (SOC) se renuevan automáticamente salvo notificación contraria.</li>
+            </ul>
+
+            <h3>8.2 Terminación por el Cliente:</h3>
+            <ul>
+                <li>Puede terminar el contrato con 30 días de anticipación por escrito.</li>
+                <li>Debe cancelar servicios prestados hasta la fecha de terminación.</li>
+            </ul>
+
+            <h3>8.3 Terminación por la Empresa:</h3>
+            <ul>
+                <li>Podemos terminar el contrato si el cliente incumple obligaciones de pago.</li>
+                <li>Podemos suspender servicios si el cliente solicita actividades ilegales o no éticas.</li>
+                <li>Notificaremos con 15 días de anticipación salvo causa grave.</li>
+            </ul>
+        </section>
+
+        -->
+        <section class="content-section">
+            <h2>9. Uso Ético de Servicios</h2>
+            <p>Código 404 Ciberseguridad se adhiere estrictamente a códigos de ética profesional:</p>
+            
+            <ul>
+                <li><strong>Legalidad:</strong> No realizamos actividades que violen leyes chilenas o internacionales.</li>
+                <li><strong>Autorización:</strong> Solo trabajamos en sistemas para los cuales tenemos autorización escrita del propietario.</li>
+                <li><strong>No daño:</strong> Tomamos precauciones razonables para no causar daño a sistemas del cliente.</li>
+                <li><strong>Conflicto de interés:</strong> No trabajamos con competidores directos del mismo sector simultáneamente sin consentimiento.</li>
+                <li><strong>Reporte responsable:</strong> Todos los hallazgos se reportan únicamente al cliente autorizado.</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>⛔ Actividades Prohibidas</h4>
+                <p>No proporcionamos servicios para: ataques no autorizados, robo de datos, evasión de controles de seguridad con fines maliciosos, o cualquier actividad ilegal. Nos reservamos el derecho de rechazar cualquier proyecto que viole estos principios.</p>
+            </div>
+        </section>
+
+        <!-- LIMITACIÓN DE RESPONSABILIDAD -->
+        <section class="content-section">
+            <h2>10. Limitación de Responsabilidad</h2>
+            
+            <ul>
+                <li><strong>Daños indirectos:</strong> No nos responsabilizamos por daños indirectos, pérdida de beneficios, interrupción de negocio o daño reputacional.</li>
+                <li><strong>Límite máximo:</strong> Nuestra responsabilidad total no excederá el monto total pagado por el servicio específico que generó el reclamo.</li>
+                <li><strong>Fuerza mayor:</strong> No somos responsables por retrasos o incumplimientos causados por eventos fuera de nuestro control razonable.</li>
+                <li><strong>Terceros:</strong> No nos responsabilizamos por fallas de proveedores terceros (hosting, cloud, ISP, software de terceros).</li>
+                <li><strong>Implementación:</strong> No garantizamos resultados de recomendaciones si no son implementadas correctamente por el cliente.</li>
+            </ul>
+        </section>
+
+        <!-- MODIFICACIONES -->
+        <section class="content-section">
+            <h2>11. Modificaciones a los Términos</h2>
+            <p>Nos reservamos el derecho de modificar estos Términos de Servicio en cualquier momento:</p>
+            
+            <ul>
+                <li>Las modificaciones entrarán en vigor 30 días después de su publicación en el sitio web.</li>
+                <li>Los contratos ya firmados se mantienen bajo los términos vigentes al momento de la firma.</li>
+                <li>Notificaremos cambios significativos por correo electrónico a clientes activos.</li>
+                <li>El uso continuado de servicios después de modificaciones implica aceptación de nuevos términos.</li>
+            </ul>
+        </section>
+
+        <!-- LEGISLACIÓN Y JURISDICCIÓN -->
+        <section class="content-section">
+            <h2>12. Legislación Aplicable y Jurisdicción</h2>
+            
+            <ul>
+                <li><strong>Ley aplicable:</strong> Estos términos se rigen por las leyes de la República de Chile.</li>
+                <li><strong>Jurisdicción:</strong> Cualquier disputa será resuelta por los tribunales de la Región de la Araucanía, Chile.</li>
+                <li><strong>Idioma:</strong> Todos los contratos y comunicaciones se realizan en idioma español.</li>
+                <li><strong>Normativa específica:</strong> Servicios de ciberseguridad se sujetan además a Ley Marco de Ciberseguridad N° 21.575 y normativa sectorial aplicable.</li>
+            </ul>
+        </section>
+
+        <!-- DISPOSICIONES GENERALES -->
+        <section class="content-section">
+            <h2>13. Disposiciones Generales</h2>
+            
+            <ul>
+                <li><strong>Cesión:</strong> El cliente no puede ceder sus derechos u obligaciones sin consentimiento escrito de la empresa.</li>
+                <li><strong>Independencia:</strong> Las partes son contratistas independientes, no existe relación laboral ni de sociedad.</li>
+                <li><strong>Comunicaciones:</strong> Todas las notificaciones deben ser por escrito (email considerado válido).</li>
+                <li><strong>Tolerancia:</strong> La tolerancia en el cumplimiento no constituye renuncia a derechos futuros.</li>
+                <li><strong>Nulidad parcial:</strong> Si alguna cláusula es declarada nula, las restantes mantienen validez.</li>
+                <li><strong>Contrato completo:</strong> Estos términos junto con la propuesta comercial constituyen el acuerdo completo entre las partes.</li>
+            </ul>
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="contact-info">
+            <h3>📞 ¿Tienes Preguntas sobre los Términos?</h3>
+            <p>Si tienes dudas sobre estos Términos de Servicio antes de contratar, contáctanos</p>
+            
+            </div>
+                <div class="contact-item">
+                    <strong>🕐 Horario de Atención</strong>
+                    Lunes a Viernes: 9:00 - 18:00 hrs
+                </div>
+            </div>
+        </section>
+
+        <!-- ACEPTACIÓN FINAL -->
+        <section class="content-section" style="text-align: center; border: 2px solid var(--primary-color);">
+            <h2>✅ Aceptación de Términos</h2>
+            <p>Al contratar los servicios de Código 404 Ciberseguridad, usted declara haber leído, comprendido y aceptado íntegramente estos Términos de Servicio.</p>
+            <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">Fecha de vigencia: Marzo 2026</p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🔐 Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="politica-privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                    <li><a href="politicadecookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoría SOC - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* --- GRID DE IMÁGENES --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s;
+            height: 280px;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .image-card:hover img {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* --- CARDS DE SERVICIOS --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- PROCESO PASO A PASO --- */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- CARACTERÍSTICAS --- */
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features-list li {
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            font-size: 1.05rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* --- HIGHLIGHT BOX --- */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '⚡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--bg-dark);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* --- MODELOS SOC --- */
+        .soc-models {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .soc-model {
+            background: var(--bg-card);
+            border: 2px solid var(--info);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .soc-model:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .soc-model h3 {
+            color: var(--info);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .soc-model .badge {
+            display: inline-block;
+            background: var(--info);
+            color: var(--bg-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .soc-model ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .soc-model ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .soc-model ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* --- ESTADÍSTICAS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- CAPABILIDADES --- */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .capability-item {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--warning);
+            transition: all 0.3s;
+        }
+
+        .capability-item:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .capability-item h4 {
+            color: var(--warning);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 30px 20px; }
+            .image-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .step { flex-direction: column; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .soc-models { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="#" class="active">Consultoría SOC</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon">🛡️</div>
+            <h1>Consultoría SOC</h1>
+            <p>SOC, acronimo del inglés Security Operations Center. Monitoreo continuo, detección y respuesta a incidentes de seguridad 24/7. Protegemos tu organización con vigilancia proactiva y análisis especializado.</p>
+        </section>
+
+        <!-- ¿QUÉ ES UN SOC? -->
+        <section class="section">
+            <h2>¿Qué es un SOC?</h2>
+            <p>Un <strong>Security Operations Center (SOC)</strong> es una unidad centralizada que combina personas, procesos y tecnología para monitorear, detectar, analizar y responder a incidentes de ciberseguridad en tiempo real.</p>
+            
+            <div class="highlight-box">
+                <h3>¿Por qué es Esencial?</h3>
+                <p>El tiempo promedio para detectar una brecha de seguridad es de 207 días. Un SOC reduce este tiempo a horas o minutos, minimizando significativamente el impacto de los incidentes y protegiendo tus activos críticos.</p>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="centro SOC.jpg" alt="Centro de Operaciones SOC">
+                    <div class="image-overlay">Centro de Operaciones SOC</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Monitoreo de Seguridad">
+                    <div class="image-overlay">Monitoreo de Seguridad 24/7</div>
+                </div>
+                <div class="image-card">
+                    <img src="Analisis de Amenazas.jpg" alt="Análisis de Threats">
+                    <div class="image-overlay">Análisis de Amenazas</div>
+                </div>
+            </div>
+
+            <p>El SOC actúa como el centro de comando de seguridad de tu organización, integrando herramientas de monitoreo, análisis de inteligencia de amenazas y equipos de respuesta para proteger tu infraestructura digital las 24 horas del día, los 7 días de la semana.</p>
+        </section>
+
+        <!-- ESTADÍSTICAS DE IMPACTO -->
+        <section class="section">
+            <h2>Impacto de un SOC Efectivo</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">207</div>
+                    <div class="stat-label">Días promedio para detectar brecha (sin SOC)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitoreo continuo de seguridad</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">Reducción en tiempo de detección</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Menor impacto de incidentes</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODELOS DE SOC -->
+        <section class="section">
+            <h2>Modelos de SOC Disponibles</h2>
+            <p>Ofrecemos diferentes modelos de SOC adaptados al tamaño, necesidades y presupuesto de tu organización:</p>
+            
+            <div class="soc-models">
+                <div class="soc-model">
+                    <span class="badge">OPCIÓN 1</span>
+                    <h3>SOC Interno</h3>
+                    <p>Implementación de un SOC dentro de tu organización</p>
+                    <ul>
+                        <li>Infraestructura on-premise o cloud</li>
+                        <li>Contratación y capacitación de personal</li>
+                        <li>Control total de operaciones</li>
+                        <li>Inversión inicial más alta</li>
+                        <li>Ideal para grandes organizaciones</li>
+                    </ul>
+                </div>
+
+                <div class="soc-model">
+                    <span class="badge">OPCIÓN 2</span>
+                    <h3>SOC Externo (MSSP)</h3>
+                    <p>Servicio de SOC gestionado por proveedores externos</p>
+                    <ul>
+                        <li>Monitoreo 24/7 por expertos</li>
+                        <li>Costo operativo mensual</li>
+                        <li>Escalabilidad inmediata</li>
+                        <li>Acceso a tecnología avanzada</li>
+                        <li>Ideal para PYMES y empresas medianas</li>
+                    </ul>
+                </div>
+
+                <div class="soc-model">
+                    <span class="badge">OPCIÓN 3</span>
+                    <h3>SOC Híbrido</h3>
+                    <p>Combinación de capacidades internas y externas</p>
+                    <ul>
+                        <li>Equipo interno + soporte externo</li>
+                        <li>Flexibilidad operacional</li>
+                        <li>Cobertura 24/7 con personal interno</li>
+                        <li>Balance costo-control</li>
+                        <li>Ideal para organizaciones en crecimiento</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAPABILIDADES DEL SOC -->
+        <section class="section">
+            <h2>Capabilidades de Nuestro SOC</h2>
+            
+            <div class="capabilities-grid">
+                <div class="capability-item">
+                    <h4>🔍 Monitoreo Continuo</h4>
+                    <p>Vigilancia 24/7 de redes, endpoints, aplicaciones y infraestructura cloud con correlación de eventos en tiempo real.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>🚨 Detección de Amenazas</h4>
+                    <p>Identificación proactiva de actividades maliciosas usando SIEM, EDR, NDR e inteligencia de amenazas.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>⚡ Respuesta a Incidentes</h4>
+                    <p>Activación inmediata de protocolos de respuesta para contener, erradicar y recuperar de incidentes de seguridad.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>📊 Análisis Forense</h4>
+                    <p>Investigación profunda de incidentes para determinar causa raíz, alcance y evidencias para acciones legales.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>🧠 Threat Intelligence</h4>
+                    <p>Inteligencia de amenazas actualizada sobre TTPs de atacantes, vulnerabilidades emergentes y campañas activas.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>📋 Gestión de Vulnerabilidades</h4>
+                    <p>Escaneo continuo, priorización y seguimiento de remediación de vulnerabilidades en tu infraestructura.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>🔐 Gestión de Identidades</h4>
+                    <p>Monitoreo de accesos privilegiados, detección de comportamientos anómalos y prevención de compromiso de cuentas.</p>
+                </div>
+
+                <div class="capability-item">
+                    <h4>📈 Reportes y Métricas</h4>
+                    <p>Informes ejecutivos y técnicos, KPIs de seguridad, cumplimiento normativo y tendencias de amenazas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICIO DE CONSULTORÍA SOC -->
+        <section class="section">
+            <h2>Nuestro Servicio de Consultoría SOC</h2>
+            <p>Te asesoramos en el diseño, implementación, operación y mejora de tu Security Operations Center:</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Evaluación de Madurez</h3>
+                        <p>Evaluamos tu postura actual de seguridad, capacidades existentes, brechas y requisitos organizacionales. Definimos el nivel de madurez SOC deseado.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Diseño de Arquitectura SOC</h3>
+                        <p>Diseñamos la arquitectura técnica del SOC: selección de SIEM, EDR, herramientas de monitoreo, flujos de datos, integración de fuentes de logs y casos de uso.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Definición de Procesos</h3>
+                        <p>Documentamos procesos operativos: detección, triage, escalamiento, respuesta, comunicación y post-incidente. Playbooks y runbooks personalizados.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Implementación de Tecnología</h3>
+                        <p>Despliegue y configuración de herramientas SIEM (Splunk, QRadar, Sentinel), EDR, SOAR, y sistemas de correlación de eventos.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Construcción de Equipo</h3>
+                        <p>Definición de roles (Analista L1/L2/L3, Manager, Hunter), perfiles requeridos, plan de contratación y programa de capacitación continua.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Desarrollo de Casos de Uso</h3>
+                        <p>Creación de reglas de detección, correlaciones, dashboards y alertas basadas en tu entorno específico y amenazas relevantes.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3>Integración de Threat Intelligence</h3>
+                        <p>Conexión con feeds de inteligencia de amenazas, IOC, TTPs de atacantes y contextualización de alertas con información externa.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h3>Pruebas y Validación</h3>
+                        <p>Ejecución de simulaciones de ataque (Purple Team), validación de detecciones, ajuste de reglas y medición de tiempos de respuesta.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h3>Puesta en Producción</h3>
+                        <p>Transición a operaciones 24/7, handover de conocimientos, documentación final y establecimiento de métricas de desempeño.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">10</div>
+                    <div class="step-content">
+                        <h3>Mejora Continua</h3>
+                        <p>Revisiones periódicas, optimización de reglas, actualización de playbooks, capacitación continua y adaptación a nuevas amenazas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUÉ INCLUYE -->
+        <section class="section">
+            <h2>¿Qué Incluye Nuestro Servicio?</h2>
+            
+            <ul class="features-list">
+                <li><strong>Consultores Certificados:</strong> Profesionales con certificaciones GCIH, GCIA, CISSP, CEH</li>
+                <li><strong>Metodología Probada:</strong> Enfoque basado en estándares NIST, MITRE ATT&CK, SANS</li>
+                <li><strong>Arquitectura Personalizada:</strong> Diseño adaptado a tu infraestructura y necesidades</li>
+                <li><strong>Playbooks y Runbooks:</strong> Documentación operativa detallada para cada escenario</li>
+                <li><strong>Capacitación de Equipo:</strong> Formación para analistas SOC en todos los niveles</li>
+                <li><strong>Integración de Herramientas:</strong> Conectividad con tu stack de seguridad existente</li>
+                <li><strong>Soporte Post-Implementación:</strong> Acompañamiento durante operaciones iniciales</li>
+                <li><strong>Métricas y KPIs:</strong> Dashboard de desempeño y efectividad del SOC</li>
+            </ul>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="implementacion SOC.jpg" alt="Implementación SOC">
+                    <div class="image-overlay">Implementación SOC</div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop" alt="Operaciones de Seguridad">
+                    <div class="image-overlay">Operaciones de Seguridad</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERRAMIENTAS SOC -->
+        <section class="section">
+            <h2>Herramientas y Tecnologías SOC</h2>
+            <p>Trabajamos con las plataformas más reconocidas de la industria para operaciones de seguridad:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>SIEM (Security Information & Event Management)</h3>
+                    <p>Splunk, IBM QRadar, Microsoft Sentinel, Elastic Security, LogRhythm, ArcSight</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>SOAR (Security Orchestration, Automation & Response)</h3>
+                    <p>Palo Alto Cortex XSOAR, Splunk SOAR, Swimlane, TheHive, Shuffle</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>EDR/XDR (Endpoint/Extended Detection & Response)</h3>
+                    <p>CrowdStrike, Microsoft Defender, SentinelOne, Carbon Black, Cortex XDR</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Threat Intelligence Platforms</h3>
+                    <p>MISP, Anomali, Recorded Future, ThreatConnect, AlienVault OTX</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Análisis de Red (NDR)</h3>
+                    <p>Darktrace, ExtraHop, Zeek, Suricata, Security Onion</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Gestión de Casos</h3>
+                    <p>TheHive, Cortex, ServiceNow Security Operations, Jira Service Management</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS -->
+        <section class="section">
+            <h2>Beneficios de un SOC Profesional</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⏱️</div>
+                    <h3>Detección Temprana</h3>
+                    <p>Reduce drásticamente el tiempo de detección de incidentes de meses a minutos, minimizando el daño potencial.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Protección 24/7</h3>
+                    <p>Vigilancia continua sin interrupciones, incluyendo fines de semana, feriados y horarios nocturnos.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📜</div>
+                    <h3>Cumplimiento Normativo</h3>
+                    <p>Demuestra cumplimiento con Ley Marco de Ciberseguridad, ISO 27001, PCI-DSS y regulaciones sectoriales.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>ROI en Seguridad</h3>
+                    <p>El costo de un SOC es significativamente menor que el impacto financiero de una brecha de seguridad exitosa.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🔒 Establece Tu SOC con Expertos</h2>
+            <p>No esperes al próximo incidente para fortalecer tu capacidad de detección y respuesta. Nuestros consultores te guiarán en la implementación de un SOC efectivo y alineado con tus necesidades.</p>
+            <a href="index.html#contacto" class="cta-btn">Solicitar Consultoría SOC</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - Código 404 Ciberseguridad</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .last-update {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        /* --- SECCIONES DE CONTENIDO --- */
+        .content-section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .content-section h3 {
+            color: var(--info, #00d4ff);
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section ul li::marker {
+            color: var(--primary-color);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 212, 255, 0.05));
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- CONTACTO INFO --- */
+        .contact-info {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .contact-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .content-section { padding: 25px 20px; }
+            .content-section h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="#" class="active">Política de Privacidad</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>🔒 Política de Privacidad</h1>
+            <p>Comprometidos con la protección de tus datos personales</p>
+            <div class="last-update">📅 Última actualización: Agosto 2026</div>
+        </section>
+
+        <!-- INTRODUCCIÓN -->
+        <section class="content-section">
+            <h2>Introducción</h2>
+            <p>En <strong>Código 404 Ciberseguridad</strong>, nos tomamos muy en serio la privacidad y la protección de tus datos personales. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos tu información cuando utilizas nuestro sitio web y servicios.</p>
+            
+            <div class="highlight-box">
+                <h4>Nuestro Compromiso</h4>
+                <p>Como empresa especializada en ciberseguridad, entendemos la importancia crítica de la protección de datos. Implementamos las más altas medidas de seguridad para garantizar la confidencialidad, integridad y disponibilidad de tu información.</p>
+            </div>
+
+            <p>Al utilizar nuestros servicios, aceptas las prácticas descritas en esta política. Si no estás de acuerdo con algún aspecto, te pedimos que no utilices nuestros servicios.</p>
+        </section>
+
+        <!-- INFORMACIÓN QUE RECOPILAMOS -->
+        <section class="content-section">
+            <h2>Información que Recopilamos</h2>
+            
+            <h3>1. Información que nos proporcionas directamente:</h3>
+            <ul>
+                <li><strong>Datos de contacto:</strong> Nombre completo, correo electrónico, número de teléfono, dirección postal.</li>
+                <li><strong>Información profesional:</strong> Cargo, nombre de la empresa, sector industrial, tamaño de la organización.</li>
+                <li><strong>Datos de comunicación:</strong> Mensajes, consultas y cualquier información que nos envíes a través de formularios de contacto, correo electrónico o WhatsApp.</li>
+                <li><strong>Información de proyectos:</strong> Detalles sobre tus necesidades de ciberseguridad, infraestructura tecnológica y requisitos específicos.</li>
+            </ul>
+
+            <h3>2. Información recopilada automáticamente:</h3>
+            <ul>
+                <li><strong>Datos de navegación:</strong> Dirección IP, tipo de navegador, versión del navegador, páginas visitadas, tiempo de visita, fecha y hora de acceso.</li>
+                <li><strong>Información del dispositivo:</strong> Sistema operativo, tipo de dispositivo, identificadores únicos del dispositivo.</li>
+                <li><strong>Cookies y tecnologías similares:</strong> Utilizamos cookies para mejorar tu experiencia (ver sección de Cookies).</li>
+            </ul>
+
+            <h3>3. Información de fuentes públicas:</h3>
+            <ul>
+                <li>Datos disponibles públicamente en redes profesionales (LinkedIn, etc.) cuando es relevante para nuestros servicios.</li>
+            </ul>
+        </section>
+
+        <!-- CÓMO USAMOS TU INFORMACIÓN -->
+        <section class="content-section">
+            <h2>¿Cómo Usamos tu Información?</h2>
+            <p>Utilizamos la información que recopilamos para los siguientes propósitos:</p>
+            
+            <ul>
+                <li><strong>Prestación de servicios:</strong> Proporcionar, mantener y mejorar nuestros servicios de ciberseguridad.</li>
+                <li><strong>Comunicación:</strong> Responder a tus consultas, enviar información sobre proyectos, cotizaciones y seguimiento de servicios.</li>
+                <li><strong>Marketing y promociones:</strong> Enviarte información sobre nuevos servicios, capacitaciones gratuitas, webinars y contenido relevante (solo con tu consentimiento).</li>
+                <li><strong>Mejora del sitio web:</strong> Analizar el uso de nuestro sitio para optimizar la experiencia del usuario y el contenido.</li>
+                <li><strong>Seguridad:</strong> Proteger nuestro sitio web, prevenir fraudes y garantizar la seguridad de nuestros sistemas.</li>
+                <li><strong>Cumplimiento legal:</strong> Cumplir con obligaciones legales y regulatorias aplicables en Chile.</li>
+                <li><strong>Facturación:</strong> Procesar pagos y emitir facturas por servicios prestados.</li>
+            </ul>
+        </section>
+
+        <!-- BASE LEGAL -->
+        <section class="content-section">
+            <h2>Base Legal para el Tratamiento</h2>
+            <p>Tratamos tus datos personales basándonos en:</p>
+            
+            <ul>
+                <li><strong>Consentimiento:</strong> Cuando nos has dado tu consentimiento explícito para fines específicos (ej: envío de newsletters).</li>
+                <li><strong>Ejecución de contrato:</strong> Cuando el tratamiento es necesario para la prestación de nuestros servicios.</li>
+                <li><strong>Obligaciones legales:</strong> Cuando debemos cumplir con requisitos legales o regulatorios.</li>
+                <li><strong>Interés legítimo:</strong> Para mejorar nuestros servicios, prevenir fraudes y garantizar la seguridad de nuestra red.</li>
+            </ul>
+        </section>
+
+        <!-- COOKIES -->
+        <section class="content-section">
+            <h2>Cookies y Tecnologías de Rastreo</h2>
+            <p>Utilizamos cookies y tecnologías similares para mejorar tu experiencia en nuestro sitio web:</p>
+            
+            <h3>Tipos de cookies que usamos:</h3>
+            <ul>
+                <li><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio web.</li>
+                <li><strong>Cookies de preferencias:</strong> Recuerdan tus configuraciones y preferencias.</li>
+                <li><strong>Cookies analíticas:</strong> Nos ayudan a entender cómo los visitantes interactúan con el sitio (Google Analytics).</li>
+                <li><strong>Cookies de marketing:</strong> Utilizadas para mostrar contenido relevante y personalizado.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>🔧 Control de Cookies</h4>
+                <p>Puedes configurar tu navegador para rechazar todas las cookies o para avisarte cuando se envíe una cookie. Sin embargo, algunas funciones del sitio pueden no funcionar correctamente si desactivas las cookies.</p>
+            </div>
+        </section>
+
+        <!-- COMPARTICIÓN DE DATOS -->
+        <section class="content-section">
+            <h2>¿Con quién Compartimos tu Información?</h2>
+            <p>No vendemos ni alquilamos tus datos personales. Solo compartimos información en las siguientes circunstancias:</p>
+            
+            <ul>
+                <li><strong>Proveedores de servicios:</strong> Con terceros que nos ayudan a operar nuestro negocio (hosting, email marketing, herramientas analíticas), siempre que acepten mantener la confidencialidad.</li>
+                <li><strong>Obligaciones legales:</strong> Cuando sea requerido por ley, orden judicial o autoridad competente en Chile.</li>
+                <li><strong>Protección de derechos:</strong> Para proteger nuestros derechos legales, propiedad o seguridad, o la de nuestros clientes.</li>
+                <li><strong>Con tu consentimiento:</strong> Cuando nos has dado permiso explícito para compartir tu información.</li>
+            </ul>
+        </section>
+
+        <!-- SEGURIDAD -->
+        <section class="content-section">
+            <h2>Seguridad de tus Datos</h2>
+            <p>Como empresa de ciberseguridad, implementamos medidas técnicas y organizativas de alto nivel para proteger tus datos:</p>
+            
+            <ul>
+                <li><strong>Cifrado:</strong> Uso de SSL/TLS para proteger la transmisión de datos.</li>
+                <li><strong>Acceso restringido:</strong> Solo personal autorizado tiene acceso a datos personales.</li>
+                <li><strong>Almacenamiento seguro:</strong> Servidores protegidos con firewalls, autenticación multifactor y monitoreo 24/7.</li>
+                <li><strong>Backups:</strong> Copias de seguridad regulares y cifradas.</li>
+                <li><strong>Actualizaciones:</strong> Parches de seguridad actualizados constantemente.</li>
+                <li><strong>Capacitación:</strong> Personal entrenado en protección de datos y buenas prácticas de seguridad.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>⚠️ Limitación de Responsabilidad</h4>
+                <p>Aunque hacemos todo lo posible por proteger tus datos, ningún método de transmisión por Internet o almacenamiento electrónico es 100% seguro. No podemos garantizar seguridad absoluta, pero sí comprometernos a usar medios comercialmente aceptables para proteger tu información.</p>
+            </div>
+        </section>
+
+        <!-- TRANSFERENCIAS INTERNACIONALES -->
+        <section class="content-section">
+            <h2>Transferencias Internacionales de Datos</h2>
+            <p>Algunos de nuestros proveedores de servicios pueden estar ubicados fuera de Chile. Cuando transferimos datos internacionalmente:</p>
+            
+            <ul>
+                <li>Nos aseguramos de que existan garantías adecuadas de protección.</li>
+                <li>Utilizamos cláusulas contractuales estándar cuando es necesario.</li>
+                <li>Verificamos que los países receptores tengan niveles adecuados de protección de datos.</li>
+            </ul>
+        </section>
+
+        <!-- CONSERVACIÓN DE DATOS -->
+        <section class="content-section">
+            <h2>Conservación de Datos</h2>
+            <p>Conservamos tus datos personales solo durante el tiempo necesario:</p>
+            
+            <ul>
+                <li><strong>Clientes activos:</strong> Durante la vigencia del contrato y hasta 5 años después para cumplir obligaciones legales.</li>
+                <li><strong>Prospectos:</strong> Hasta 2 años desde el último contacto, o hasta que retires tu consentimiento.</li>
+                <li><strong>Newsletter:</strong> Hasta que te desuscribas.</li>
+                <li><strong>Registros de seguridad:</strong> Según requiera la normativa chilena de ciberseguridad.</li>
+            </ul>
+
+            <p>Cuando ya no necesitemos tus datos, los eliminaremos de forma segura o los anonimizaremos.</p>
+        </section>
+
+        <!-- TUS DERECHOS -->
+        <section class="content-section">
+            <h2>Tus Derechos (Ley 19.628 y Nueva Ley de Protección de Datos)</h2>
+            <p>De acuerdo con la legislación chilena de protección de datos, tienes los siguientes derechos:</p>
+            
+            <ul>
+                <li><strong>Derecho de acceso:</strong> Solicitar información sobre qué datos tenemos sobre ti.</li>
+                <li><strong>Derecho de rectificación:</strong> Corregir datos inexactos o incompletos.</li>
+                <li><strong>Derecho de cancelación/supresión:</strong> Solicitar la eliminación de tus datos cuando ya no sean necesarios.</li>
+                <li><strong>Derecho de oposición:</strong> Oponerte al tratamiento de tus datos para fines específicos.</li>
+                <li><strong>Derecho a la portabilidad:</strong> Recibir tus datos en formato estructurado para transmitirlos a otro responsable.</li>
+                <li><strong>Derecho a limitar el tratamiento:</strong> Solicitar la limitación del tratamiento en ciertos casos.</li>
+                <li><strong>Derecho a retirar el consentimiento:</strong> Retirar tu consentimiento en cualquier momento (sin afectar la licitud del tratamiento anterior).</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>📩 Cómo Ejercer tus Derechos</h4>
+                <p>Para ejercer cualquiera de estos derechos, contáctanos a: <strong>codigo404ciberseg@gmail.com</strong> con el asunto "Ejercicio de Derechos ARCO". Responderemos en un plazo máximo de 30 días hábiles.</p>
+            </div>
+        </section>
+
+        <!-- MENORES DE EDAD -->
+        <section class="content-section">
+            <h2>Menores de Edad</h2>
+            <p>Nuestros servicios están dirigidos a personas mayores de 18 años y empresas. No recopilamos intencionalmente información de menores de edad. Si descubrimos que hemos recopilado datos de un menor sin verificación del consentimiento parental, eliminaremos dicha información inmediatamente.</p>
+        </section>
+
+        <!-- CAMBIOS A LA POLÍTICA -->
+        <section class="content-section">
+            <h2>Modificaciones a esta Política</h2>
+            <p>Podemos actualizar esta Política de Privacidad periódicamente para reflejar cambios en nuestras prácticas, tecnologías o requisitos legales. Te notificaremos sobre cambios significativos mediante:</p>
+            
+            <ul>
+                <li>Publicación en nuestro sitio web con fecha de actualización.</li>
+                <li>Correo electrónico si eres cliente o suscriptor.</li>
+                <li>Aviso destacado en nuestro sitio web.</li>
+            </ul>
+
+            <p>El uso continuado de nuestros servicios después de los cambios constituye aceptación de la nueva política.</p>
+        </section>
+
+        <!-- LEGISLACIÓN APLICABLE -->
+        <section class="content-section">
+            <h2>Legislación Aplicable</h2>
+            <p>Esta Política de Privacidad se rige por las leyes de la República de Chile, incluyendo:</p>
+            
+            <ul>
+                <li>Ley N° 19.628 sobre Protección de la Vida Privada.</li>
+                <li>Nueva Ley de Protección de Datos Personales (en implementación).</li>
+                <li>Ley Marco de Ciberseguridad N° 21.575.</li>
+                <li>Normativa sectorial aplicable según corresponda.</li>
+            </ul>
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="contact-info">
+            <h3>📞 ¿Tienes Preguntas sobre tu Privacidad?</h3>
+            <p>Si tienes dudas sobre esta Política de Privacidad o el tratamiento de tus datos, no dudes en contactarnos</p>
+            
+                <div class="contact-item">
+                    <strong>🕐 Horario de Atención</strong>
+                    Lunes a Viernes: 9:00 - 18:00 hrs
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🔐 Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="politica-privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="terminosdeservicio.html">Términos de Servicio</a></li>
+                    <li><a href="politicadecookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +56 9 XXXX XXXX</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>

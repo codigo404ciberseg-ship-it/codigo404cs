@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Gratis</title>
+    <link a rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #00cc33;
+            --bg-dark: #0d1117;
+            --bg-darker: #05080a;
+            --bg-card: #161b22;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --nav-bg: rgba(13, 17, 23, 0.95);
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- IMAGEN DE FONDO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES --- */
+        .section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        /* --- CURSOS GRID --- */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info));
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.4);
+        }
+
+        /* --- INSIGNIA/BADGE --- */
+        .course-badge {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .badge-middle {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border: 2px solid var(--info);
+            border-radius: 50%;
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .badge-inner {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(135deg, var(--primary-color), var(--info));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .course-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .course-level {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .course-card p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .course-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(0, 255, 65, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-item .value {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .enroll-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 12px 35px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary-color);
+            margin-top: 15px;
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+        }
+
+        /* --- CARACTERÍSTICAS --- */
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 30px 20px; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .course-badge { width: 120px; height: 120px; }
+            .badge-inner { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="#" class="active">Cursos Gratis</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon">🎓</div>
+            <h1>Capacitaciones Gratuitas</h1>
+            <p>Formación profesional en Computación niveles 1 a 3. Principios de Ciberseguridad niveles 1 y 2 sin costo. Accede a nuestros cursos online y obtén certificados e insignias digitales que avalarán tus conocimientos.</p>
+        </section>
+
+        <!-- CURSOS DISPONIBLES -->
+        <section class="section">
+            <h2>Cursos Disponibles</h2>
+            <p>Selecciona tu curso y comienza a aprender hoy mismo. Todos nuestros cursos son 100% gratuitos e incluyen certificación.</p>
+            
+            <div class="courses-grid">
+                <!-- CURSO 1 -->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="badge-outer"></div>
+                        <div class="badge-middle"></div>
+                        <div class="hero-logo">
+                            <img src="Insignia 1.png" width="200" height="200" alt="Description">
+                        </div>
+                    </div>
+                    <h3>Fundamentos de Computación</h3>
+                    <span class="course-level">Nivel: Uno</span>
+                    <p>Aprende los conceptos básicos de computación, su funcionamiento, y operaciones básicas.</p>
+                    
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">8 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">4</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Certificado</span>
+                            <span class="value">Sí</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Introducción a la computación</li>
+                        <li>Funcionamiento</li>
+                        <li>Fallas comunes y como solucionarlas</li>
+                        <li>Herramientas básicas del computador</li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20el%20curso%20fundamentos%20de%20computación%20(Nivel 1)" class="enroll-btn">Inscribirme Gratis</a>
+                </div>
+
+                <!-- CURSO 2 -->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="badge-outer"></div>
+                        <div class="badge-middle"></div>
+                        <div class="hero-logo">
+                            <img src="Insignia 2.png" width="200" height="200" alt="Description">
+                        </div>
+                    </div>
+                    <h3>Introducción a la Computación</h3>
+                    <span class="course-level">Nivel: Dos</span>
+                    <p>En este nivel aprenderás a utilizar de buena manera un computador, aprenderás que es software y hardware, además de aprender a utilizar herramientas de ofimática.</p>
+                    
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">10 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">4</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Certificado</span>
+                            <span class="value">Sí</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Metodología de la computación</li>
+                        <li>Reconocimiento de hardware / software</li>
+                        <li>Uso seguro y correcto del equipo</li>
+                        <li>Principios de ofimática</li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20el%20curso%20introducción%20a%20la%20computación%20(Nivel 2)"" class="enroll-btn">Inscribirme Gratis</a>
+                </div>
+
+                <!-- CURSO 3 -->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="badge-outer"></div>
+                        <div class="badge-middle"></div>
+                        <div class="hero-logo">
+                            <img src="Insignia 3.png" width="200" height="200" alt="Description">
+                        </div>
+                    </div>
+                    <h3>Computación</h3>
+                    <span class="course-level">Nivel: Tres</span>
+                    <p>En este nivel aprenderás a utilizar las herramientas computacionales y de ofimática de manera óptima.</p>
+                    
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">12 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">5</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Certificado</span>
+                            <span class="value">Sí</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Computación avanzada</li>
+                        <li>Herramientas de ofimática avanzada</li>
+                        <li>Uso seguro del computador</li>
+                        <li>Fundamentos de Internet</li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20el%20curso%20computación%20(Nivel 3)" class="enroll-btn">Inscribirme Gratis</a>
+                </div>
+
+                <!-- CURSO 4 -->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="badge-outer"></div>
+                        <div class="badge-middle"></div>
+                        <div class="hero-logo">
+                            <img src="Insignia 4.png" width="200" height="200" alt="Description">
+                        </div>
+                    </div>
+                    <h3>Fundamentos de Ciberseguridad</h3>
+                    <span class="course-level">Nivel: Uno</span>
+                    <p>Aprende a detectar, analizar y responder efectivamente a incidentes de seguridad informática siguiendo mejores prácticas internacionales.</p>
+                    
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">15 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">8</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Certificado</span>
+                            <span class="value">Sí</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Reconocimiento de correos maliciosos</li>
+                        <li>Reconocimiento de sitios fraudulentos</li>
+                        <li>Tipos de estafas cibernéticas y cómo evitarlas</li>
+                        <li>Lecciones aprendidas</li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20el%20curso%20fundamentos%20de%20ciberseguridad%20(Nivel 1)" class="enroll-btn">Inscribirme Gratis</a>
+                </div>
+
+                <!-- CURSO 5 -->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="badge-outer"></div>
+                        <div class="badge-middle"></div>
+                        <div class="hero-logo">
+                            <img src="Insignia 5.png" width="200" height="200" alt="Description">
+                        </div>
+                    </div>
+                    <h3>Ciberseguridad</h3>
+                    <span class="course-level">Nivel: Dos</span>
+                    <p>Domina los conceptos de Ciberseguridad, firewalls, VPNs y protección de infraestructura de red.</p>
+                    
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">18 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">10</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Certificado</span>
+                            <span class="value">Sí</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Ciberseguridad</li>
+                        <li>Firewalls / Antivirus</li>
+                        <li>VPNs (corredores seguros) para navegar por internet</li>
+                        <li>Protección de infraestructura</li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20el%20curso%20ciberseguridad%20(Nivel 2)" class="enroll-btn">Inscribirme Gratis</a>
+                </div>
+
+                <!-- Curso Completo-->
+                <div class="course-card">
+                    <div class="course-badge">
+                        <div class="hero-logo">
+                            <img src="Certificación profesional.png" width="200" height="200" alt="Description">                            
+                        </div>
+                    </div>
+                    <h3>Curso Completo</h3>
+                    <span class="course-level">Diplomado</span>
+                    <p>Al realizar el curso completo podrás ser acreedor de un Diploma al finalizar.</p>
+
+                    <div class="course-info">
+                        <div class="info-item">
+                            <span class="label">Duración</span>
+                            <span class="value">63 horas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Módulos</span>
+                            <span class="value">31</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">+Diploma</span>
+                            <span class="value">Si</span>
+                        </div>
+                    </div>
+                    <ul class="features-list" style="text-align: left; margin: 20px 0;">
+                        <li>Completar el Curso <strong>Fundamentos de Computación</strong></li>
+                        <li>Completar el Curso <strong>Introducción a la Computación</strong></li>
+                        <li>Completar el Curso <strong>Computación</strong></li>
+                        <li>Completar el Curso <strong>Fundamentos de Ciberseguridad</strong></li>
+                        <li>Completar el Curso <strong>Ciberseguridad</strong></li>
+                    </ul>
+
+                    <a href="https://wa.me/56986532515?text=Que%20tal,%20me%20interesa%20tomar%20todos%20los%20cursos%20" class="enroll-btn">Inscribirme Gratis</a>
+                    </div>                
+             </div>
+        </section>
+
+        <!-- CARACTERÍSTICAS -->
+        <section class="section">
+            <h2>¿Por qué tomar nuestros cursos?</h2>
+            
+            <ul class="features-list">
+                <li><strong>100% Gratuitos:</strong> Sin costo alguno, formación de calidad accesible para todos</li>
+                <li><strong>Certificación Digital:</strong> Obtén insignias y certificados al completar cada curso</li>
+                <li><strong>Contenido Actualizado:</strong> Material basado en estándares y amenazas actuales</li>
+                <li><strong>Instructores Expertos:</strong> Profesionales certificados con experiencia en la industria</li>
+                <li><strong>A tu Ritmo:</strong> Estudia online cuando y donde quieras</li>
+                <li><strong>Soporte Dedicado:</strong> Resolvemos tus dudas durante el curso</li>
+                <li><strong>Recursos Descargables:</strong> Material complementario y laboratorios prácticos</li>
+                <li><strong>Diplomado:</strong> Al completar todos los cursos tendras el derecho a obtener un Diploma en Fundamentos de Computación y Ciberseguridad.</li>
+                <li><strong>Comunidad:</strong> Únete a nuestra comunidad de estudiantes y profesionales</li>
+            </ul>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <h2>🚀 Comienza Tu Formación Hoy</h2>
+            <p>No esperes más para desarrollar tus habilidades en ciberseguridad. Inscríbete gratis y obtén tu primera insignia digital. Para mayor información haz clic en el botón.</p>
+            <a href="https://wa.me/56986532515?text=Que%20tal,%20necesito%20más%20información.%20en%20cuanto%20a%20los%20cursos%20que%20ofrecen." class="cta-btn">Inscribirme Ahora</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="Servicios.html">Servicios</a></li>                    
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Nueva Imperial, IX Región</p>
+                <p>📧 codigo404ciberseg@gmail.com</p>
+                <p>📞 +569 8 653 2515</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN IR ARRIBA -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>
