@@ -1,13 +1,134 @@
-self.addEventListener("install", event => {
+const CACHE_NAME = "codigo404-v2";
+
+/* ===========
+   ARCHIVOS BASE
+=========== */
+
+const APP_ASSETS = [
+
+    "/",
+    "/index.html",
+
+    "/manifest.json",
+    "/app.js",
+
+    "/favicon.png",
+
+    "/icon-192.png",
+    "/icon-512.png",
+
+    "/Logo Digital CD-404.jpg",
+
+    "/tips.html",
+    "/clientes.html",
+    "/certificaciones.html",
+    "/explorarsoluciones.html",
+
+    "/analisisforensedigital.html",
+    "/auditoriaderedes.html",
+    "/asesoriaISO27001.html",
+    "/consultoriaSOC.html",
+    "/normativaCSIRT.html",
+    "/pentesting.html",
+    "/capacitacionesgratis.html",
+
+    "/offline.html"
+
+];
+
+
+/* ===========
+   INSTALACIÓN
+=========== */
+
+self.addEventListener("install",(event)=>{
+
+    event.waitUntil(
+
+        caches.open(CACHE_NAME)
+
+            .then(cache=>cache.addAll(APP_ASSETS))
+
+    );
+
     self.skipWaiting();
+
 });
 
-self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.open("codigo404-v1").then(cache => {
-            return cache.match(event.request).then(response => {
-                return response || fetch(event.request);
-            });
+
+/* ===========
+   ACTIVACIÓN
+=========== */
+
+self.addEventListener("activate",(event)=>{
+
+    event.waitUntil(
+
+        caches.keys()
+
+        .then(keys=>{
+
+            return Promise.all(
+
+                keys.map(key=>{
+
+                    if(key!==CACHE_NAME){
+
+                        return caches.delete(key);
+
+                    }
+
+                })
+
+            );
+
         })
+
     );
+
+    self.clients.claim();
+
+});
+
+
+/* ===========
+   FETCH
+=========== */
+
+self.addEventListener("fetch",(event)=>{
+
+    if(event.request.method!=="GET") return;
+
+    event.respondWith(
+
+        fetch(event.request)
+
+        .then(response=>{
+
+            const clone=response.clone();
+
+            caches.open(CACHE_NAME)
+
+                .then(cache=>cache.put(event.request,clone));
+
+            return response;
+
+        })
+
+        .catch(()=>{
+
+            return caches.match(event.request)
+
+            .then(response=>{
+
+                return response ||
+
+                caches.match("/offline.html");
+
+            });
+
+        })
+
+    );
+
 });
