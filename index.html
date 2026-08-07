@@ -693,6 +693,9 @@
                     para proteger su información crítica.</p>
                 <a class='hero-btn' href='explorarsoluciones.html'>Explorar Soluciones</a>
             </div>
+            <button id="installBtn" class="hero-btn" style="display:none;">
+                📲 Instalar App
+            </button>
             <div class="hero-trust">
                 <div class="trust-item">
                     🛡 Atención a Empresas
@@ -849,6 +852,39 @@
         function topFunction() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+
+        let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    installBtn.style.display = "inline-block";
+
+});
+
+installBtn.addEventListener("click", async () => {
+
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+
+        console.log("Aplicación instalada");
+
+    }
+
+    deferredPrompt = null;
+
+    installBtn.style.display = "none";
+
+});
     </script>
 
 </body>
