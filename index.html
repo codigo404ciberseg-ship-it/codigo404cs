@@ -644,6 +644,75 @@
             background: rgba(0,255,65,.15);
             box-shadow: 0 0 20px rgba(0,255,65,.4);
         }
+        /* =====================================================
+   NOTIFICACIONES PWA
+===================================================== */
+
+#app-toast{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    min-width:280px;
+
+    max-width:380px;
+
+    padding:16px 22px;
+
+    border-radius:10px;
+
+    color:#fff;
+
+    font-weight:bold;
+
+    z-index:99999;
+
+    transform:translateX(450px);
+
+    opacity:0;
+
+    transition:.35s;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+    backdrop-filter:blur(8px);
+
+}
+
+#app-toast.show{
+
+    transform:translateX(0);
+
+    opacity:1;
+
+}
+
+#app-toast.success{
+
+    background:#0f8f45;
+
+}
+
+#app-toast.error{
+
+    background:#b62020;
+
+}
+
+#app-toast.info{
+
+    background:#005fb8;
+
+}
+
+#app-toast.warning{
+
+    background:#b87900;
+
+}
         
     </style>
 </head>
@@ -840,5 +909,8 @@
 
     <!-- JAVASCRIPT -->
     <script src="app.js"></script>
+
+    <div id="app-toast"></div>
+    
 </body>
 </html>
