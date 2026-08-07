@@ -713,6 +713,64 @@
     background:#b87900;
 
 }
+
+/*=========================
+ ACTUALIZACIÓN
+==========================*/
+
+#update-banner{
+
+position:fixed;
+
+bottom:25px;
+
+left:50%;
+
+transform:translateX(-50%) translateY(150px);
+
+background:#161b22;
+
+border:1px solid #00ff41;
+
+padding:16px 22px;
+
+border-radius:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+transition:.4s;
+
+z-index:99999;
+
+box-shadow:0 10px 30px rgba(0,255,65,.25);
+
+}
+
+#update-banner.show{
+
+transform:translateX(-50%) translateY(0);
+
+}
+
+#update-banner button{
+
+background:#00ff41;
+
+border:none;
+
+padding:10px 20px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+border-radius:5px;
+
+}
         
     </style>
 </head>
@@ -912,5 +970,16 @@
 
     <div id="app-toast"></div>
     
+    <div id="update-banner">
+
+    <span>🚀 Nueva versión disponible</span>
+
+    <button id="updateApp">
+
+        Actualizar
+
+    </button>
+
+</div>
 </body>
 </html>
