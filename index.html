@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Código 404 Ciberseguridad</title>
     <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff41">
     <style>
         /* --- ESTILOS GENERALES --- */
         :root {
@@ -886,6 +888,10 @@ installBtn.addEventListener("click", async () => {
 
 });
     </script>
+if ("serviceWorker" in navigator) {
 
+    navigator.serviceWorker.register("sw.js");
+
+    }
 </body>
 </html>
