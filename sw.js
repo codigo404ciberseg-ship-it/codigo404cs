@@ -1,4 +1,4 @@
-const CACHE_NAME = "codigo404-v2";
+const CACHE_NAME = "codigo404-cache-v1.0.0";
 
 /* ===========
    ARCHIVOS BASE
