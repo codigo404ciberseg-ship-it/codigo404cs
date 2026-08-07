@@ -98,3 +98,56 @@ if (installBtn) {
     });
 
 }
+
+/*=====================================================
+  SISTEMA DE NOTIFICACIONES
+=====================================================*/
+
+const toast = document.getElementById("app-toast");
+
+let toastTimer;
+
+function mostrarToast(mensaje,tipo="info",duracion=3500){
+
+    clearTimeout(toastTimer);
+
+    toast.className="";
+
+    toast.classList.add(tipo);
+
+    toast.classList.add("show");
+
+    toast.innerHTML=mensaje;
+
+    toastTimer=setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },duracion);
+
+}
+
+/*=====================================================
+  ESTADO DE RED
+=====================================================*/
+
+window.addEventListener("online",()=>{
+
+    mostrarToast("🟢 Conexión restablecida","success");
+
+});
+
+window.addEventListener("offline",()=>{
+
+    mostrarToast("🔴 Sin conexión a Internet","error",5000);
+
+});
+if(navigator.onLine){
+
+    mostrarToast("🟢 Aplicación lista","success",2500);
+
+}else{
+
+    mostrarToast("🔴 Estás trabajando sin Internet","warning",5000);
+
+}
