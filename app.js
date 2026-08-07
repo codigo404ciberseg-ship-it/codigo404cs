@@ -151,3 +151,61 @@ if(navigator.onLine){
     mostrarToast("🔴 Estás trabajando sin Internet","warning",5000);
 
 }
+
+/*==================================================
+ DETECTOR DE ACTUALIZACIONES
+==================================================*/
+
+let refreshing=false;
+
+navigator.serviceWorker.addEventListener("controllerchange",()=>{
+
+    if(refreshing) return;
+
+    refreshing=true;
+
+    window.location.reload();
+
+});
+
+navigator.serviceWorker.ready.then(reg=>{
+
+    reg.addEventListener("updatefound",()=>{
+
+        const worker=reg.installing;
+
+        worker.addEventListener("statechange",()=>{
+
+            if(worker.state==="installed" && navigator.serviceWorker.controller){
+
+                document
+
+                    .getElementById("update-banner")
+
+                    .classList.add("show");
+
+            }
+
+        });
+
+    });
+
+});
+
+document
+
+.getElementById("updateApp")
+
+.addEventListener("click",()=>{
+
+    navigator.serviceWorker.getRegistration()
+
+    .then(reg=>{
+
+        reg.update();
+
+        window.location.reload();
+
+    });
+
+});
