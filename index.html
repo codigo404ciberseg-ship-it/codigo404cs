@@ -839,60 +839,6 @@
     <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
 
     <!-- JAVASCRIPT -->
-    <script>
-        // Botón ir arriba
-        let mybutton = document.getElementById("btn-back-to-top");
-
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        };
-
-        function topFunction() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt", (e) => {
-
-    e.preventDefault();
-
-    deferredPrompt = e;
-
-    installBtn.style.display = "inline-block";
-
-});
-
-installBtn.addEventListener("click", async () => {
-
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-
-        console.log("Aplicación instalada");
-
-    }
-
-    deferredPrompt = null;
-
-    installBtn.style.display = "none";
-
-});
-        if ("serviceWorker" in navigator) {
-
-    navigator.serviceWorker.register("sw.js");
-
-    }
-    </script>
-
+    <script src="app.js"></script>
 </body>
 </html>
