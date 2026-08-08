@@ -209,3 +209,86 @@ document
     });
 
 });
+
+/* =====================================================
+   CÓDIGO 404 - BOOT SEQUENCE
+===================================================== */
+
+(function () {
+
+    const VERSION_BOOT = "1.0.0";
+
+    const bootScreen =
+        document.getElementById("boot-screen");
+
+    const progressBar =
+        document.getElementById("boot-progress-bar");
+
+    const bootStatus =
+        document.getElementById("boot-status");
+
+    const welcome =
+        document.getElementById("boot-welcome");
+
+    if (!bootScreen) return;
+
+    const bootVersion =
+        localStorage.getItem("codigo404_boot_version");
+
+    /*
+     * La animación aparece solamente:
+     * - la primera vez
+     * - cuando cambiamos VERSION_BOOT
+     */
+
+    if (bootVersion === VERSION_BOOT) {
+
+        bootScreen.remove();
+
+        return;
+
+    }
+
+    let progress = 0;
+
+    const progressInterval = setInterval(() => {
+
+        progress += 10;
+
+        if (progress > 100) {
+            progress = 100;
+        }
+
+        progressBar.style.width = progress + "%";
+
+        bootStatus.textContent =
+            progress + "%";
+
+        if (progress >= 100) {
+
+            clearInterval(progressInterval);
+
+            welcome.classList.add("show");
+
+            setTimeout(() => {
+
+                bootScreen.classList.add("boot-hidden");
+
+                localStorage.setItem(
+                    "codigo404_boot_version",
+                    VERSION_BOOT
+                );
+
+                setTimeout(() => {
+
+                    bootScreen.remove();
+
+                }, 700);
+
+            }, 900);
+
+        }
+
+    }, 180);
+
+})();
