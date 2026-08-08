@@ -11,14 +11,12 @@ const backToTop = document.getElementById("btn-back-to-top");
 
 window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 300) {
+   if (!backToTop) return;
 
-        backToTop.style.display = "block";
-
+   if (window.scrollY > 300) {
+       backToTop.style.display = "block";
     } else {
-
         backToTop.style.display = "none";
-
     }
 
 });
@@ -197,22 +195,27 @@ navigator.serviceWorker.ready.then(reg=>{
 });
 
 document
+const updateAppBtn = document.getElementById("updateApp");
 
-.getElementById("updateApp")
+if (updateAppBtn) {
 
-.addEventListener("click",()=>{
+   updateAppBtn.addEventListener("click", () => {
 
-    navigator.serviceWorker.getRegistration()
+      navigator.serviceWorker.getRegistration()
 
     .then(reg=>{
 
+       if (reg) {
         reg.update();
+       }
 
         window.location.reload();
 
     });
 
 });
+
+}
 
 /* =====================================================
    CÓDIGO 404 - BOOT SEQUENCE
