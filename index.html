@@ -891,7 +891,67 @@ border-radius:5px;
         margin-bottom: 25px;
     }
 
-}       
+}      
+
+        /* ===== BANNER DE COOKIES ===== */
+        #banner-cookies {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background:rgba(0, 0, 0, 0.8);
+            color: var(--color-blanco);
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 -2px 10px rgba(48, 248, 8, 0.699);
+            z-index: 1000;
+        }
+
+        #banner-cookies p {
+            max-width: 600px;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        #banner-cookies .botones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #banner-cookies button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        #banner-cookies button:hover {
+            opacity: 0.85;
+        }
+
+        .btn-aceptar {
+            background: #4caf50;
+            color: var(--color-blanco);
+        }
+
+        .btn-rechazar {
+            background: #e53935;
+            color: var(--color-blanco);
+        }
+
+        .btn-configurar {
+            background: transparent;
+            color: var(--color-blanco);
+            border: 1px solid var(--color-blanco) !important;
+        }
     </style>
 </head>
 <body>
