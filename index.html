@@ -1163,7 +1163,48 @@ border-radius:5px;
         Actualizar
 
     </button>
+ <!-- ===== BANNER DE COOKIES ===== -->
+    <div id="banner-cookies" role="dialog" aria-label="Aviso de cookies">
+        <p>
+            🍪 Utilizamos cookies propias y de terceros para fines analíticos y de marketing.
+            Puedes aceptarlas, rechazarlas o configurarlas. Más información en nuestra
+            <a href="#consentimiento" style="color: #fff; text-decoration: underline;">Política de Cookies</a>.
+        </p>
+        <div class="botones">
+            <button type="button" class="btn-aceptar" onclick="gestionarCookies('aceptar')">Aceptar todas</button>
+            <button type="button" class="btn-rechazar" onclick="gestionarCookies('rechazar')">Rechazar</button>
+            <button type="button" class="btn-configurar" onclick="gestionarCookies('configurar')">Configurar</button>
+        </div>
+    </div>
 
+    <!-- ===== JAVASCRIPT DEL BANNER ===== -->
+    <script>
+        // Mostrar el banner solo si no hay consentimiento previo
+        document.addEventListener('DOMContentLoaded', function () {
+            const consentimiento = localStorage.getItem('cookie_consent');
+            if (consentimiento) {
+                document.getElementById('banner-cookies').style.display = 'none';
+            }
+        });
+
+        // Gestión básica de la elección del usuario
+        function gestionarCookies(opcion) {
+            localStorage.setItem('cookie_consent', opcion);
+            document.getElementById('banner-cookies').style.display = 'none';
+
+            if (opcion === 'aceptar') {
+                // Aquí se activarían los scripts de cookies no esenciales
+                // (Google Analytics, Meta Pixel, etc.)
+                console.log('Cookies aceptadas.');
+            } else if (opcion === 'rechazar') {
+                console.log('Cookies no esenciales rechazadas.');
+            } else {
+                // Aquí se abriría el panel de configuración granular
+                console.log('Abrir panel de configuración de cookies.');
+                alert('Aquí se abriría el panel de configuración granular de cookies.');
+            }
+        }
+    </script>
 </div>
 </body>
 </html>
