@@ -109,13 +109,10 @@ let toastTimer;
 
 function mostrarToast(mensaje, tipo = "info", duracion = 3500) {
 
-    // Si el contenedor no existe, no detener la aplicación
+    // Evita que un elemento inexistente detenga todo app.js
     if (!toast) {
-
-        console.warn("⚠️ Contenedor app-toast no encontrado.");
-
+        console.warn("⚠️ app-toast no encontrado.");
         return;
-
     }
 
     clearTimeout(toastTimer);
@@ -132,7 +129,6 @@ function mostrarToast(mensaje, tipo = "info", duracion = 3500) {
         toast.classList.remove("show");
 
     }, duracion);
-
 }
 
 /*=====================================================
