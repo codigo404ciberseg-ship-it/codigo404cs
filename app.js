@@ -107,23 +107,31 @@ const toast = document.getElementById("app-toast");
 
 let toastTimer;
 
-function mostrarToast(mensaje,tipo="info",duracion=3500){
+function mostrarToast(mensaje, tipo = "info", duracion = 3500) {
+
+    // Si el contenedor no existe, no detener la aplicación
+    if (!toast) {
+
+        console.warn("⚠️ Contenedor app-toast no encontrado.");
+
+        return;
+
+    }
 
     clearTimeout(toastTimer);
 
-    toast.className="";
+    toast.className = "";
 
     toast.classList.add(tipo);
-
     toast.classList.add("show");
 
-    toast.innerHTML=mensaje;
+    toast.innerHTML = mensaje;
 
-    toastTimer=setTimeout(()=>{
+    toastTimer = setTimeout(() => {
 
         toast.classList.remove("show");
 
-    },duracion);
+    }, duracion);
 
 }
 
