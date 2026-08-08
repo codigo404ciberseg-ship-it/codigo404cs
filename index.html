@@ -129,6 +129,8 @@
     }
 
 }
+
+        .nav-buttons { display: flex; gap: 8px; }
         
         .logo-nav {
             font-size: 1.3rem;
@@ -1023,6 +1025,12 @@ border-radius:5px;
 </div>
     <!-- HEADER / MENÚ -->
     <header>
+    
+        <nav>
+  <div class="nav-buttons">
+    <button onclick="leerTexto()">🔊 Escuchar</button>
+    <button onclick="detenerLectura()">⛔ Detener</button>
+  </div>
         <a class='logo-nav' href='/'>Código 404 Ciberseguridad</a>
         <nav>
             <ul>
