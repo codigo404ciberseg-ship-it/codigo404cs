@@ -212,14 +212,14 @@ document
 
 /* =====================================================
    CÓDIGO 404 - BOOT SEQUENCE
+   Versión segura
 ===================================================== */
 
 (function () {
 
-    const VERSION_BOOT = "1.0.0";
+    const bootScreen = document.getElementById("boot-screen");
 
-    const bootScreen =
-        document.getElementById("boot-screen");
+    if (!bootScreen) return;
 
     const progressBar =
         document.getElementById("boot-progress-bar");
@@ -230,26 +230,31 @@ document
     const welcome =
         document.getElementById("boot-welcome");
 
-    if (!bootScreen) return;
-
-    const bootVersion =
-        localStorage.getItem("codigo404_boot_version");
+    let progress = 0;
 
     /*
-     * La animación aparece solamente:
-     * - la primera vez
-     * - cuando cambiamos VERSION_BOOT
+     * MECANISMO DE SEGURIDAD
+     * El splash nunca podrá quedarse bloqueado.
      */
 
-    if (bootVersion === VERSION_BOOT) {
+    const safetyTimer = setTimeout(() => {
 
-        bootScreen.remove();
+        bootScreen.classList.add("boot-hidden");
 
-        return;
+        setTimeout(() => {
 
-    }
+            if (bootScreen) {
+                bootScreen.remove();
+            }
 
-    let progress = 0;
+        }, 700);
+
+    }, 6000);
+
+
+    /*
+     * Animación de progreso
+     */
 
     const progressInterval = setInterval(() => {
 
@@ -259,36 +264,40 @@ document
             progress = 100;
         }
 
-        progressBar.style.width = progress + "%";
+        if (progressBar) {
+            progressBar.style.width = progress + "%";
+        }
 
-        bootStatus.textContent =
-            progress + "%";
+        if (bootStatus) {
+            bootStatus.textContent = progress + "%";
+        }
 
         if (progress >= 100) {
 
             clearInterval(progressInterval);
 
-            welcome.classList.add("show");
+            if (welcome) {
+                welcome.classList.add("show");
+            }
 
             setTimeout(() => {
 
-                bootScreen.classList.add("boot-hidden");
+                clearTimeout(safetyTimer);
 
-                localStorage.setItem(
-                    "codigo404_boot_version",
-                    VERSION_BOOT
-                );
+                bootScreen.classList.add("boot-hidden");
 
                 setTimeout(() => {
 
-                    bootScreen.remove();
+                    if (bootScreen) {
+                        bootScreen.remove();
+                    }
 
                 }, 700);
 
-            }, 900);
+            }, 700);
 
         }
 
-    }, 180);
+    }, 150);
 
 })();
