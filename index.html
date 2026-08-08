@@ -87,20 +87,20 @@
            AVISO DE EXPERIENCIA - CÓDIGO 404 CS
            ==================================== */
         .experiencia-banner {
-    width: 100%;
-    margin-top: 78px;
-    padding: 8px 15px;
-    background: rgba(0, 0, 0, 0.75);
-    border-bottom: 1px solid rgba(0, 255, 65, 0.45);
-    border-top: 1px solid rgba(0, 255, 65, 0.2);
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: center;
-    color: var(--primary-color);
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.78rem;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+        width: 100%;
+        margin-top: 78px;
+        padding: 8px 15px;
+        background: rgba(0, 0, 0, 0.75);
+        border-bottom: 1px solid rgba(0, 255, 65, 0.45);
+        border-top: 1px solid rgba(0, 255, 65, 0.2);
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
+        color: var(--primary-color);
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+        text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
 }
 
 .experiencia-banner span {
@@ -205,9 +205,55 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ====================
+           AVISO DE EXPERIENCIA
+           ==================== */
+        .aviso-experiencia {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-top: 1px solid rgba(0, 255, 65, 0.25);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.25);
+            background: rgba(0, 0, 0, 0.65);
+            white-space: nowrap;
+    }
+
+        .aviso-texto {
+            display: inline-block;
+            padding: 8px 0;
+            color: var(--primary-color, #00ff41);
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            animation: desplazarAviso 18s linear infinite;
+    }
+
+@keyframes desplazarAviso {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .aviso-experiencia {
+         margin-top: 68px;
+    }
+
+    .aviso-texto {
+        font-size: 0.75rem;
+        padding: 7px 0;
+        animation-duration: 14s;
+    }
+
+}
+
         /* --- CONTENIDO PRINCIPAL --- */
         .container {
-            padding: 100px 5% 40px;
+            padding: 30px 5% 40px;
             flex: 1;
             max-width: 1400px;
             margin: 0 auto;
@@ -220,7 +266,7 @@
             align-items: center;
             justify-content: center;
             gap: 40px;
-            margin: 80px auto;
+            margin: 35px auto;
             flex-wrap: wrap;
             max-width: 1400px;
             padding: 40px 20px;
@@ -621,6 +667,14 @@
                 font-size: 1.1rem;
             }
 
+            .container {
+                padding-top: 20px;
+            }
+
+            .hero {
+                margin: 25px auto;
+            }
+
             .hero-logo img {
                 width: 100px;
                 height: 100px;
@@ -716,74 +770,47 @@
             background: rgba(0,255,65,.15);
             box-shadow: 0 0 20px rgba(0,255,65,.4);
         }
-        /* =====================================================
+/* =====================================================
    NOTIFICACIONES PWA
 ===================================================== */
 
 #app-toast{
-
     position:fixed;
-
     top:20px;
-
     right:20px;
-
     min-width:280px;
-
     max-width:380px;
-
     padding:16px 22px;
-
     border-radius:10px;
-
     color:#fff;
-
     font-weight:bold;
-
     z-index:99999;
-
     transform:translateX(450px);
-
     opacity:0;
-
     transition:.35s;
-
     box-shadow:0 10px 30px rgba(0,0,0,.4);
-
     backdrop-filter:blur(8px);
-
 }
 
 #app-toast.show{
-
     transform:translateX(0);
-
     opacity:1;
-
 }
 
 #app-toast.success{
-
     background:#0f8f45;
-
 }
 
 #app-toast.error{
-
     background:#b62020;
-
 }
 
 #app-toast.info{
-
     background:#005fb8;
-
 }
 
 #app-toast.warning{
-
     background:#b87900;
-
 }
 
 /*=========================
@@ -791,62 +818,38 @@
 ==========================*/
 
 #update-banner{
-
 position:fixed;
-
 bottom:25px;
-
 left:50%;
-
 transform:translateX(-50%) translateY(150px);
-
 background:#161b22;
-
 border:1px solid #00ff41;
-
 padding:16px 22px;
-
 border-radius:10px;
-
 display:flex;
-
 align-items:center;
-
 gap:20px;
-
 transition:.4s;
-
 z-index:99999;
-
 box-shadow:0 10px 30px rgba(0,255,65,.25);
-
 }
 
 #update-banner.show{
-
 transform:translateX(-50%) translateY(0);
-
 }
 
 #update-banner button{
-
 background:#00ff41;
-
 border:none;
-
 padding:10px 20px;
-
 cursor:pointer;
-
 font-weight:bold;
-
 border-radius:5px;
-
 }
         
  /* =====================================================
    CÓDIGO 404 - BOOT SCREEN PWA
-===================================================== */
+    ===================================================== */
 
 #boot-screen {
     position: fixed;
@@ -953,7 +956,6 @@ border-radius:5px;
 }
 
 @media (max-width: 600px) {
-
     .boot-terminal {
         padding: 15px;
         font-size: 13px;
@@ -965,7 +967,7 @@ border-radius:5px;
 
 }      
 
-        /* =====================================================
+  /* =====================================================
    BANNER DE COOKIES
    Código 404 - Responsive / Accesible
    ===================================================== */
@@ -975,25 +977,18 @@ border-radius:5px;
     bottom: 0;
     left: 0;
     right: 0;
-
     background: rgba(0, 0, 0, 0.92);
     color: var(--color-blanco, #ffffff);
-
     padding: 18px 5%;
-
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 18px;
-
     border-top: 1px solid var(--primary-color, #00ff41);
-
     box-shadow:
         0 -5px 25px rgba(0, 255, 65, 0.20);
-
     backdrop-filter: blur(10px);
-
     z-index: 100000;
 }
 
@@ -1002,19 +997,16 @@ border-radius:5px;
 #banner-cookies p {
     max-width: 700px;
     margin: 0;
-
     font-size: 0.9rem;
     line-height: 1.6;
 }
 
 /* Enlace política */
-
 #banner-cookies a {
     color: var(--primary-color, #00ff41) !important;
 }
 
 /* Contenedor botones */
-
 #banner-cookies .botones {
     display: flex;
     gap: 10px;
@@ -1023,21 +1015,15 @@ border-radius:5px;
 }
 
 /* Botones */
-
 #banner-cookies button {
     min-height: 44px;
-
     padding: 10px 18px;
-
     border: none;
     border-radius: 6px;
-
     cursor: pointer;
-
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
     font-weight: bold;
-
     transition:
         transform 0.2s ease,
         opacity 0.2s ease,
@@ -1050,25 +1036,21 @@ border-radius:5px;
 }
 
 /* Botón aceptar */
-
 #banner-cookies .btn-aceptar {
     background: #4caf50;
     color: #ffffff;
 }
 
 /* Botón rechazar */
-
 #banner-cookies .btn-rechazar {
     background: #e53935;
     color: #ffffff;
 }
 
 /* Botón configurar */
-
 #banner-cookies .btn-configurar {
     background: transparent;
     color: #ffffff;
-
     border: 1px solid #ffffff !important;
 }
 
@@ -1076,60 +1058,50 @@ border-radius:5px;
 /* =====================================================
    COOKIES — MÓVIL
    ===================================================== */
-
 @media screen and (max-width: 600px) {
 
     #banner-cookies {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-
-        padding: 18px;
-
-        border: 1px solid var(--primary-color, #00ff41);
-        border-radius: 12px;
-
+        position: fixed;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        width: auto;
+        padding: 16px;
         display: flex;
         flex-direction: column;
-
         align-items: stretch;
         justify-content: center;
-
-        gap: 14px;
-
-        max-height: 75vh;
-        overflow-y: auto;
+        gap: 12px;
+        background: rgba(0, 0, 0, 0.96);
+        border: 1px solid var(--primary-color, #00ff41);
+        border-radius: 10px;
+        box-shadow: 0 0 25px rgba(0, 255, 65, 0.25);
+        z-index: 100000;
     }
 
     #banner-cookies p {
+        width: 100%;
         max-width: none;
-
-        font-size: 0.85rem;
-        line-height: 1.5;
-
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.45;
         text-align: left;
     }
 
     #banner-cookies .botones {
         width: 100%;
-
         display: flex;
         flex-direction: column;
-
-        gap: 9px;
+        gap: 8px;
     }
 
     #banner-cookies button {
         width: 100%;
-
-        min-height: 46px;
-
-        padding: 11px 15px;
-
-        font-size: 0.85rem;
+        min-height: 44px;
+        padding: 10px;
+        font-size: 13px;
     }
 }
-
             #banner-cookies .btn-configurar {
                 grid-column: 1 / -1;
     </style>
@@ -1138,67 +1110,49 @@ border-radius:5px;
 <!-- ========================
      CÓDIGO 404 - BOOT SCREEN
      ======================== -->
-
 <div id="boot-screen">
-
     <div class="boot-container">
-
         <div class="boot-logo">
             CÓDIGO 404
         </div>
-
         <div class="boot-subtitle">
             CIBERSEGURIDAD
         </div>
-
         <div class="boot-terminal">
-
             <div class="boot-line" style="animation-delay:0.2s;">
                 &gt; Inicializando sistema...
             </div>
-
             <div class="boot-line" style="animation-delay:0.6s;">
                 <span class="boot-ok">[OK]</span>
                 Cargando interfaz
             </div>
-
             <div class="boot-line" style="animation-delay:1s;">
                 <span class="boot-ok">[OK]</span>
                 Verificando recursos
             </div>
-
             <div class="boot-line" style="animation-delay:1.4s;">
                 <span class="boot-ok">[OK]</span>
                 Inicializando PWA
             </div>
-
             <div class="boot-line" style="animation-delay:1.8s;">
                 <span class="boot-ok">[OK]</span>
                 Sistema preparado
             </div>
-
             <div class="boot-progress">
                 <div id="boot-progress-bar"
                      class="boot-progress-bar">
                 </div>
             </div>
-
             <div id="boot-status"
                  class="boot-status">
                 0%
             </div>
-
         </div>
-
         <div id="boot-welcome"
              class="boot-welcome">
-
             BIENVENIDO
-
         </div>
-
     </div>
-
 </div>
     <!-- HEADER / MENÚ -->
     <header>
@@ -1225,11 +1179,11 @@ border-radius:5px;
         </nav>
     </header>
     <!-- AVISO DE EXPERIENCIA -->
-    <div class="experiencia-banner">
-        <span>
-            ⚠ Para una mejor experiencia visita el sitio desde un computador
-        </span>
+    <div class="experiencia-banner" aria-label="Aviso">
+        <div class="aviso-texto">
+        ⚠ Para una mejor experiencia visita el sitio desde un computador
     </div>
+</div>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container" id="inicio">
@@ -1267,6 +1221,8 @@ border-radius:5px;
                 </div>
                 <div class="trust-item">
                     🇨🇱 Servicios en Chile
+            </div>
+
             </div>
 
             <!-- 3️⃣ RADAR (DERECHA) -->
