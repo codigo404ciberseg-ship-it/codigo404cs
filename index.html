@@ -318,6 +318,29 @@
         .dot-2 { top: 65%; left: 25%; animation-delay: 0.5s; }
         .dot-3 { top: 40%; left: 75%; animation-delay: 1s; }
 
+        /* --- BOTÓN INSTALAR PWA --- */
+        .install-btn {
+            display: block;
+            margin: 15px auto 0;
+            padding: 12px 30 px;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .install-btn:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            transform: translateY(-3px);
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
@@ -1065,10 +1088,13 @@ border-radius:5px;
                 <p>Ciberseguridad, Auditorías, Pentesting, Resuesta a incidentes y cumplimiento normativo
                     para proteger su información crítica.</p>
                 <a class='hero-btn' href='explorarsoluciones.html'>Explorar Soluciones</a>
-            </div>
+        
             <button id="installBtn" class="hero-btn" style="display:none;">
                 📲 Instalar App
             </button>
+
+            </div>
+            
             <div class="hero-trust">
                 <div class="trust-item">
                     🛡 Atención a Empresas
