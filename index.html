@@ -971,6 +971,31 @@ border-radius:5px;
         margin-bottom: 25px;
     }
 
+    /* Accessibility Panel */
+    #accesibilidad {
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      background: rgba(0,0,0,0.6);
+      padding: 8px;
+      border-radius: 10px;
+      z-index: 99999;
+      gap: 5px;
+    }
+    #accesibilidad button {
+      background: rgb(4, 226, 67);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    #accesibilidad button:hover { background: #4facfe; color: white; 
+ }
 }      
 
      </style>
@@ -1257,6 +1282,20 @@ border-radius:5px;
     </button>
 </div>
 
+<!-- Accessibility Panel -->
+<div id="accesibilidad" role="group" aria-label="Accesibilidad">
+  <button onclick="cambiarTexto(1)" aria-label="Aumentar tamaño de texto">A+</button>
+  <button onclick="cambiarTexto(-1)" aria-label="Reducir tamaño de texto">A-</button>
+  <button id="btnContraste" onclick="toggleAltoContraste()"aria-label="Activar alto contraste">🌙</button>
+</div>
+
+<!-- Accessibility Panel -->
+<div id="accesibilidad" role="group" aria-label="Accesibilidad">
+  <button onclick="cambiarTexto(1)" aria-label="Aumentar tamaño de texto">A+</button>
+  <button onclick="cambiarTexto(-1)" aria-label="Reducir tamaño de texto">A-</button>
+  <button id="btnContraste" onclick="toggleAltoContraste()"aria-label="Activar alto contraste">🌙</button>
+</div>
+
 <!-- APP.JS: DEBE CARGARSE DESPUÉS DE LOS ELEMENTOS HTML -->
 <script src="app.js"></script>
 
@@ -1277,6 +1316,18 @@ border-radius:5px;
   function detenerLectura() {
     window.speechSynthesis.cancel();
     hablando = false;
+  }
+
+ // Accessibility Font Resizer
+  let tamañoActual = localStorage.getItem("texto") || 100;
+  document.documentElement.style.fontSize = tamañoActual + "%";
+
+  function cambiarTexto(valor) {
+    tamañoActual = parseInt(tamañoActual) + valor * 10;
+    if (tamañoActual < 80) tamañoActual = 80;
+    if (tamañoActual > 150) tamañoActual = 150;
+    document.documentElement.style.fontSize = tamañoActual + "%";
+    localStorage.setItem("texto", tamañoActual);
   }
 </script>
 
