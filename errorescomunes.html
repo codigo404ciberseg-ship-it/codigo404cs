@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link a rel="icon" href="favicon.png" type="image/x-icon">
+        <title>Errores Comunes</title>
+        <style>
+            /*--- ESTILOS GENERALES ---*/
+            :root {
+                --primary-color: #00ff41;
+                --secondary-color: #00cc33;
+                --bg-dark: #0d1117;
+                --bg-darker: #05080a;
+                --bg-card: #161b22;
+                --text-color: #e6edf3;
+                --text-muted: #8b949e;
+                --nav-bg: rgba(13, 17, 23, 0.95);
+                --danger: #ff4444;
+                --warning: #ffaa00;
+                --info: #00d4ff;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-color);
+                line-height: 1.6;
+                overflow-x: hidden;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            /* --- IMAGEN DE FONDO ---*/
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                opacity: 0.1;
+                z-index: -1;
+            }
+
+            /* --- HEADER ---*/
+            header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--primary-color);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-nav {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo-nav:hover {
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px 12px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            padding: 120px 5% 40px;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- SECCIONES DE TIPS --- */
+        .tips-section {
+            background: rgba(13, 17, 23, 0.85);
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tips-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tips-section h2::before {
+            content: '▹';
+            color: var(--primary-color);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .tip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .tip-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .tip-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .tip-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tip-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .tip-warning {
+            background: rgba(255, 170, 0, 0.1);
+            border-left: 3px solid var(--warning);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .tip-warning strong {
+            color: var(--warning);
+        }
+
+        .tip-success {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .tip-success strong {
+            color: var(--primary-color);
+        }
+
+        /* --- PERSONAJE EN CADA SECCION --- */
+        .section-mascot {
+            width: 150px;
+            height: 250px;
+            float: right;
+            margin: 0 0 20px 20px;
+            object-fit: contain;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* --- LISTA DE TIPS --- */
+        .tips-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .tips-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tips-list li.danger::before {
+            content: '✗';
+            color: var(--danger);
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--primary-color);
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--info), var(--primary-color));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-dark);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-darker);
+            border-top: 2px solid var(--primary-color);
+            padding: 50px 5% 25px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 5%;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li::before {
+            content: "▹ ";
+            color: var(--primary-color);
+        }
+
+        .secure-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 25px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* --- BOTÓN IR ARRIBA --- */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        #btn-back-to-top:hover {
+            transform: scale(1.15);
+            background-color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .tips-section { padding: 30px 20px; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .section-mascot {
+                float: none;
+                display: block;
+                margin: 20px auto;
+            }
+        }
+        </style>
+    </head>
+    <body>
+
+        <!-- HEADER -->
+         <header>
+         <a href="index.html" class="logo-nav">Código 404 Ciberseguridad</a>
+         <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="#" class="active">Errores Comunes</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+         </nav>
+    </header>
+
+    <!--- CONTENIDO PRINCIPAL --->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-icon"></div>
+            <h1>Errores Comunes (Códigos Numéricos)</h1>
+            <p>Familia - Código - Descripción</p>
+        </section>
+
+        <section class="tips-section">
+            <img src="Cibersegurito8.png" alt="Personaje Tips" class="section-mascot" width="100" height="100">
+            <h1>FAMILIA COD. 100 DESCRIPCIÓN: INFORMATIVO</h1>
+            <h2>Código 100: Continuar</h2>
+            <h2>Código 101: Cambiando Protocolos</h2>
+            <h2>Código 102: Procesando</h2>
+            <h2>Código 103: Sugerencias Tempranas</h2>
+        </section>
+        <section class="tips-section">
+            <img src="Cibersegurito8.png" alt="Personaje Tips" class="section-mascot" width="100" height="100">
+            <h1>FAMILIA COD. 200 DESCRIPCIÓN: EXITO</h2>
+            <h2>Código 200: OK / Solitud Exitosa</h2>
+            <h2>Código 201: Creado</h2>
+            <h2>Código 202: Aceptado</h2>
+            <h2>Código 203: Información no Autoritativa</h2>
+            <h2>Código 204: Sin Contenido</h2>
+            <h2>Código 205: Restablecer Contenido</h2>
+            <h2>Código 206: Contenido Parcial</h2>
+            <h2>Código 207: Multestado</h2>
+        </section>
+        <section class="tips-section">
+            <img src="Cibersegurito8.png" alt="Personaje Tips" class="section-mascot" width="100" height="100">
+            <h1>FAMILIA COD. 300 DESCRIPCION: REDIRECCION</h1>
+            <h2>Código 300: Múltiples Opciones</h2>
+            <h2>Código 301: Movido Permanentemente</h2>
+            <h2>Código 302: Encontrado / Redirección Temporal</h2>
+            <h2>Código <strong>303: Ver Otro</strong></h2>
+            <h2>Código 304: No Modificado</h2>
+            <h2>Código 305: Usar Proxy (obsoleto)</h2>
+            <h2>Código 306: Cambiar Proxy (no utilizado)</h2>
+            <h2>Código 307: Redirección Temporal</h2>
+            <h2>Código 308: Redirección Permanente</h2>
+        </section>
+        <section class="tips-section">
+            <img src="Cibersegurito8.png" alt="Personaje Tips" class="section-mascot" width="100" height="100">
+            <h1>FAMILIA COD. 400 DESCRIPCION: ERROR DEL CLIENTE</h1>
+            <h2>Código 400: Solicitud Incorrecta</h2>
+            <h2>Código 401: No Autorizado</h2>
+            <h2>Código 402: Pago Requerido</h2>
+            <h2>Código 403: Prohibido</h2>
+            <h2>Código <strong>404: No Encontrado</strong></h2>
+            <h2>Código 405: Método no Permitido</h2>
+            <h2>Código 406: No Aceptable</h2>
+            <h2>Código 407: Autenticación de Proxy Requerida</h2>
+            <h2>Código 408: Tiempo de Espera Agotado</h2>
+            <h2>Código 409: Conflicto</h2>
+            <h2>Código 410: Recurso Desaparecido</h2>
+            <h2>Código 411: Longitud Requerida</h2>
+            <h2>Código 412: Precondición Fallida</h2>
+            <h2>Código 413: Contenido demasiado Grande</h2>
+            <h2>Código 414: URI demasiado Larga</h2>
+            <h2>Código 415: Tipo de Contenido no Compatible</h2>
+            <h2>Código 416: Rango no Satisfactorio</h2>
+            <h2>Código 417: Expectativa Fallida</h2>
+            <h2>Código <strong>418: Soy una Tetera</strong></h2>
+            <h2>Código 421: Solicitud mal Dirigida</h2>
+            <h2>Código 422: Contenido no Procesable</h2>
+            <h2>Código 423: Bloqueado</h2>
+            <h2>Código 424: Dependencia Fallida</h2>
+            <h2>Código 425: Demasiado Pronto</h2>
+            <h2>Código 426: Actualización Requerida</h2>
+            <h2>Código 428: Precondición Requerida</h2>
+            <h2>Código <strong>429: Demasiadas Solicitudes</strong></h2>
+            <h2>Código 431: Campos de Encabezado demasiado Grandes</h2>
+            <h2>Código 451: No disponible por razones Legales</h2>
+        </section>
+        <section class="tips-section">
+            <img src="Cibersegurito8.png" alt="Personaje Tips" class="section-mascot" width="100" height="100">
+            <h1>FAMILIA COD. 500 DESCRIPCION: ERROR DEL SERVIDOR</h1>
+            <h2>Código 500: Error interno del Servidor</h2>
+            <h2>Código 501: No Implementado</h2>
+            <h2>Código <strong>502: Puerta de enlace Incorrecta</strong></h2>
+            <h2>Código <strong>503: Servicio no Disponible</strong></h2>
+            <h2>Código <strong>504: Tiempo de Espera de la Puerta de Enlace</strong></h2>
+            <h2>Código 505: Versión HTTP no Compatible</h2>
+            <h2>Código 506: Variante también negocia</h2>
+            <h2>Código 507: Almacenamiento Insuficiente</h2>
+            <h2>Código <strong>508: Bucle detectado</strong></h2>
+            <h2>Código 510: No extendido (obsoleto)</h2>
+            <h2>código 511: Autenticación de red Requerida</h2>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+     <footer>
+        <div class="footer-content">
+            <!-- Columna 1 -->
+            <div class="footer-section">
+                <h3>Código 404 Ciberseguridad</h3>
+                <p>Protegiendo el mundo digital desde 2024. Expertos en ciberseguridad ofensiva y defensiva</p>
+                <div class="secure-badge">🔒 SSL SECURE</div>
+        </div>
+        <!-- Columna 2 -->
+        <div class="footer-section">
+            <h3>Enlaces Rápidos</h3>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="#"class="active">Errores Comunes</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </div>
+
+        <!-- Columna 3 -->
+         <div class="footer-section">
+            <h3>Servicios</h3>
+            <ul>
+                <li><a href="analisisforensedigital.html">Análisis Forense Digital</a></li>
+                <li><a href="auditoriaderedes.html">Auditoría de Redes</a></li>
+                <li><a href="asesoriaISO27001.html">Asesoría ISO 27001</a></li>
+                <li><a href="consultoriaSOC.html">Consultoría SOC</a></li>
+                <li><a href="normativaCSIRT.html">Normativa CSIRT</a></li>
+                <li><a href="pentesting.html">Pentesting</a></li>
+                <li><a href="capacitacionesgratis.html">Capacitaciones Gratis</a></li>
+            </ul>
+         </div>
+
+        <!-- Columna 4 -->
+        <div class="footer-section">
+            <h3>Contacto</h3>
+            <p>📍 Nueva Imperial, IX Región</p>
+            <p>📧 codigo404ciberseg@gmail.com</p>
+            <p>📞 +569 8 653 2515</p>
+        </div>
+    </div>
+</div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
+        <p>Desarrollado con <span>Profesionalismo y Ética</span> para la seguridad digital.</p>
+    </div>
+</footer>
+
+     <!-- BOTÓN IR ARRIBA -->
+      <button onclick="topFunction()" id="btn-back-to-top" title="Ir arriba">⇧</button>
+
+    <!-- JAVASCRIPT -->
+     <script>
+        // Botón ir arriba
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+     </script>
+
+</body>
+</html>
