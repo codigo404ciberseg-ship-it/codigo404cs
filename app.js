@@ -314,7 +314,7 @@ async function cargarContadorVisitas() {
 
     try {
         const respuesta = await fetch(
-            "https://calm-leaf-b032codigo404ciberseg.workers.dev"
+            "https://calm-leaf-b032.codigo404ciberseg.workers.dev"
         );
 
         if (!respuesta.ok) {
