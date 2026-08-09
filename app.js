@@ -308,3 +308,29 @@ if (updateAppBtn) {
     }, 150);
 
 })();
+async function cargarContadorVisitas() {
+    const contador = document.getElementById("contadorVisitas");
+
+    if (!contador) return;
+
+    try {
+        const respuesta = await fetch(
+            "https://calm-leaf-b032codigo404ciberseg.workers.dev"
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("Error al consultar el contador");
+        }
+
+        const datos = await respuesta.json();
+
+        contador.textContent =
+            Number(datos.visitas).toLocaleString("es-CL");
+
+    } catch (error) {
+        console.error("Error contador de visitas:", error);
+        contador.textContent = "—";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", cargarContadorVisitas);
