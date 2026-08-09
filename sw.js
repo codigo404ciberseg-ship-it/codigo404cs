@@ -101,8 +101,8 @@ self.addEventListener("fetch", (event) => {
 
     const url = new URL(event.request.url);
 
-    // No interceptar el contador de visitas
-    if (url.hostname === "calm-leaf-b032codigo404ciberseg.workers.dev") {
+    // No interceptar solicitudes externas
+    if (url.origin !== self.location.origin) {
         return;
     }
 
@@ -110,27 +110,32 @@ self.addEventListener("fetch", (event) => {
 
         fetch(event.request)
 
-        .then(response => {
+            .then(response => {
 
-            const clone = response.clone();
+                const clone = response.clone();
 
-            caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, clone));
+                caches.open(CACHE_NAME)
+                    .then(cache => cache.put(event.request, clone));
 
-            return response;
+                return response;
 
-        })
+            })
 
-        .catch(() => {
+            .catch(() => {
 
-            return caches.match(event.request)
-                .then(response => {
+                return caches.match(event.request)
+                    .then(response => {
 
-                    return response ||
-                           caches.match("/offline.html");
+                        return response ||
+                               caches.match("/offline.html");
 
-                });
+                    });
 
+            })
+
+    );
+
+});
         })
 
     );
