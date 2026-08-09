@@ -194,7 +194,6 @@ navigator.serviceWorker.ready.then(reg=>{
 
 });
 
-document
 const updateAppBtn = document.getElementById("updateApp");
 
 if (updateAppBtn) {
