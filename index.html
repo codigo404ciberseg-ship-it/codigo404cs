@@ -970,7 +970,66 @@ border-radius:5px;
         margin-bottom: 25px;
 
  }
-}      
+}
+
+        .contador-visitas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: fit-content;
+    min-width: 150px;
+
+    margin: 20px auto;
+    padding: 10px 18px;
+
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #00ff41;
+    border-radius: 10px;
+
+    color: #fff;
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.25);
+}
+
+.contador-icono {
+    font-size: 22px;
+}
+
+.contador-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.contador-titulo {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #aaa;
+}
+
+#contadorVisitas {
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ff41;
+}
+
+@media (max-width: 600px) {
+    .contador-visitas {
+        min-width: 130px;
+        padding: 8px 14px;
+        gap: 8px;
+    }
+
+    .contador-icono {
+        font-size: 19px;
+    }
+
+    #contadorVisitas {
+        font-size: 17px;
+    }
+}
 
      </style>
 </head>
@@ -1214,6 +1273,15 @@ border-radius:5px;
              </div>
             </div>
         </div>
+
+        <div class="contador-visitas">
+    <span class="contador-icono">👁</span>
+
+    <div class="contador-contenido">
+        <span class="contador-titulo">VISITAS</span>
+        <span id="contadorVisitas">...</span>
+    </div>
+</div>
 
         <div class="footer-bottom">
             <p>&copy; 2026 <span>Código 404 Ciberseguridad</span>. Todos los derechos reservados.</p>
