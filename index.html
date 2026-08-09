@@ -129,7 +129,6 @@
     }
 
 }
-
         .nav-buttons { display: flex; gap: 8px; }
         
         .logo-nav {
@@ -1024,15 +1023,7 @@ border-radius:5px;
     </div>
 </div>
     <!-- HEADER / MENÚ -->
-    <header>
-    
-        <nav>
-  <div class="nav-buttons">
-    <button onclick="leerTexto()">🔊 Escuchar</button>
-    <button onclick="detenerLectura()">⛔ Detener</button>
-  </div>
-        </nav>
-        
+    <header>        
         <a class='logo-nav' href='/'>Código 404 Ciberseguridad</a>
         <nav>
             <ul>
@@ -1259,26 +1250,5 @@ border-radius:5px;
 
 <!-- APP.JS: DEBE CARGARSE DESPUÉS DE LOS ELEMENTOS HTML -->
 <script src="app.js"></script>
-
-<script>
-  // Text-to-Speech Functions
-  let hablando = false;
-
-  function leerTexto() {
-    if(hablando) return;
-    const texto = document.body.innerText;
-    const speech = new SpeechSynthesisUtterance(texto);
-    speech.lang = "es-CL";
-    hablando = true;
-    speech.onend = () => { hablando = false; };
-    window.speechSynthesis.speak(speech);
-  }
-
-  function detenerLectura() {
-    window.speechSynthesis.cancel();
-    hablando = false;
-  }
-</script>
-
 </body>
 </html>
